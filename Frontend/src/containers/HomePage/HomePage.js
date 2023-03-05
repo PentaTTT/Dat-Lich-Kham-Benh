@@ -1,14 +1,41 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Header from './Header';
+import HomeHeader from './HomeHeader';
+import Specialty from './Section/Specialty';
+import MedicalFacility from './Section/MedicalFacility';
+import './HomePage.scss';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css"
+import OutstandingDoctor from './Section/OutstandingDoctor';
+import HandBook from './Section/HandBook';
+import Footer from './Footer';
+import About from './Section/About';
 
 class HomePage extends Component {
 
     render() {
+        let settings = {
+            dots: false,
+            infinity: true,
+            speed: 500,
+            slidesToShow: 4,
+            slidesToScroll: 4,
+        }
         return (
             <div>
-                <Header />
-            </div>
+                <HomeHeader />
+                <Specialty settings={settings} />
+                <div style={{ height: '2px', backgroundColor: '#eee' }}></div>
+                <MedicalFacility settings={settings} />
+                <div style={{ height: '2px', backgroundColor: '#eee' }}></div>
+                <OutstandingDoctor settings={settings} />
+                <div style={{ height: '2px', backgroundColor: '#eee' }}></div>
+                <HandBook settings={settings} />
+                <div style={{ height: '2px', backgroundColor: '#eee' }}></div>
+                <About />
+                <div style={{ height: '2px', backgroundColor: '#eee' }}></div>
+                <Footer />
+            </div >
         );
     }
 
