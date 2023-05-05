@@ -16,14 +16,15 @@ class HomePage extends Component {
     render() {
         let settings = {
             dots: false,
-            infinity: true,
+            infinite: false,
             speed: 500,
             slidesToShow: 4,
-            slidesToScroll: 4,
+            slidesToScroll: 2,
         }
+
         return (
             <div>
-                <HomeHeader />
+                <HomeHeader isShowBanner={true} />
                 <Specialty settings={settings} />
                 <div style={{ height: '2px', backgroundColor: '#eee' }}></div>
                 <MedicalFacility settings={settings} />

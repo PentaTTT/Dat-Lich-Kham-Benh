@@ -109,23 +109,26 @@ let createUser = (data) => {
                     errCode: 1,
                     message: 'Your email already exist! Please try another email'
                 })
-            }
-            let hashPasswordFromBcrypt = await hashUserPassword(data.password)
-            await db.User.create({
-                email: data.email,
-                password: hashPasswordFromBcrypt,
-                firstName: data.firstName,
-                lastName: data.lastName,
-                address: data.address,
-                phonenumber: data.phonenumber,
-                gender: data.gender === '1' ? true : false,
-                roleId: data.roleId,
-            })
+            } else {
+                let hashPasswordFromBcrypt = await hashUserPassword(data.password)
+                await db.User.create({
+                    email: data.email,
+                    password: hashPasswordFromBcrypt,
+                    firstName: data.firstName,
+                    lastName: data.lastName,
+                    address: data.address,
+                    phonenumber: data.phonenumber,
+                    gender: data.gender,
+                    roleId: data.roleId,
+                    positionId: data.positionId,
+                    image: data.avatar
+                })
 
-            resolve({
-                errCode: 0,
-                message: 'OK'
-            });
+                resolve({
+                    errCode: 0,
+                    message: 'OK'
+                });
+            }
 
         } catch (e) {
             reject(e);
@@ -161,23 +164,31 @@ let deleteUser = async (userId) => {
     })
 }
 
-let updateUser = async (data) => {
+let updateUser = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
-            if (!data.id) {
+            if (!data.id || !data.roleId || !data.positionId || !data.gender) {
                 resolve({
                     errCode: 2,
                     errMessage: 'Missing require parameter'
                 })
             }
             let user = await db.User.findOne({
-                where: { id: data.id }
+                where: { id: data.id },
+
             })
             if (user) {
                 user.firstName = data.firstName;
                 user.lastName = data.lastName;
                 user.address = data.address;
+                user.roleId = data.roleId;
+                user.positionId = data.positionId;
+                user.gender = data.gender;
                 user.phonenumber = data.phonenumber;
+                if (data.avatar) {
+                    user.image = data.avatar;
+                }
+
                 await user.save();
                 resolve({
                     errCode: 0,
@@ -219,6 +230,7 @@ let getAllCodeService = (typeInput) => {
         }
     })
 }
+
 
 module.exports = {
     handleUserLogin: handleUserLogin,

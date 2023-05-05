@@ -7,6 +7,9 @@ module.exports = (sequelize, DataTypes) => {
         //định danh quan hệ
         static associate(models) {
             // define association here
+            Schedule.belongsTo(models.Allcode, { foreignKey: 'timeType', targetKey: 'keyMap', as: 'timeTypeData' })
+            Schedule.belongsTo(models.User, { foreignKey: 'doctorId', targetKey: 'id', as: 'doctorData' })
+            // Schedule.hasMany(models.Booking, { foreignKey: 'timeType', as: 'timeTypeData' })
         }
     };
     Schedule.init({

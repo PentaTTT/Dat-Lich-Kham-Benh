@@ -68,6 +68,12 @@ class Login extends Component {
         })
     }
 
+    handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            this.handleLogin()
+        }
+    }
+
     render() {
 
         return (
@@ -79,16 +85,18 @@ class Login extends Component {
                             <label>Username:</label>
                             <input type='text' placeholder='Enter your username' className='form-control'
                                 value={this.state.username}
-                                onChange={(event) => this.handleOnChangeUsername(event)} />
+                                onChange={(event) => this.handleOnChangeUsername(event)}
+                                onKeyDown={(event) => this.handleKeyDown(event)} />
                         </div>
                         <div className='col-12 form-group input-login'>
                             <label>Password:</label>
                             <div className='custom-input-password'>
                                 <input type={this.state.isShowPassword ? 'text' : 'password'} placeholder='Enter your password'
                                     className='form-control'
-                                    onChange={(event) => this.handleOnChangePassword(event)} />
+                                    onChange={(event) => this.handleOnChangePassword(event)}
+                                    onKeyDown={(event) => this.handleKeyDown(event)} />
                                 <span onClick={() => this.handleShowHidePassword()}>
-                                    <i class={this.state.isShowPassword ? 'fas fa-eye' : 'fas fa-eye-slash'}></i>
+                                    <i className={this.state.isShowPassword ? 'fas fa-eye' : 'fas fa-eye-slash'}></i>
                                 </span>
                             </div>
                         </div>
@@ -109,8 +117,8 @@ class Login extends Component {
                         </div>
                         <div className='col-12 social-login'>
 
-                            <i class="fab fa-google google"></i>
-                            <i class="fab fa-facebook-f facebook"></i>
+                            <i className="fab fa-google google"></i>
+                            <i className="fab fa-facebook-f facebook"></i>
 
                         </div>
                     </div>

@@ -23,6 +23,12 @@ module.exports = {
             timeType: {
                 type: Sequelize.STRING
             },
+            reason: {
+                type: Sequelize.TEXT
+            },
+            token: {
+                type: Sequelize.STRING
+            },
 
             createdAt: {
                 allowNull: false,
