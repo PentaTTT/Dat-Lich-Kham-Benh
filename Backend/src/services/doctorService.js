@@ -1,7 +1,8 @@
 import db from "../models/index"
 require('dotenv').config();
 import _, { reject } from 'lodash';
-import moment from 'moment'
+import moment from 'moment';
+import emailService from '../services/emailService'
 
 const MAX_NUMBER_SCHEDULE = process.env.MAX_NUMBER_SCHEDULE;
 
@@ -426,6 +427,9 @@ let getListPatientService = (doctorId, date) => {
                                     model: db.Allcode, as: 'genderData', attributes: ['valueVi', 'valueEn']
                                 }
                             ]
+                        },
+                        {
+                            model: db.Allcode, as: 'timeTypeDataPatient', attributes: ['valueVi', 'valueEn']
                         }
                     ],
                     raw: false,
@@ -442,6 +446,44 @@ let getListPatientService = (doctorId, date) => {
     })
 }
 
+let sendRemedyService = (data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (!data.email || !data.doctorId || !data.patientId || !data.timeType) {
+                resolve({
+                    errCode: 1,
+                    errMessage: 'Missing required parameter'
+                })
+            } else {
+                //update patient status
+                let appointment = await db.Booking.findOne({
+                    where: {
+                        doctorId: data.doctorId,
+                        patientId: data.patientId,
+                        timeType: data.timeType,
+                        statusId: 'S2'
+                    },
+                    raw: false
+                })
+                if (appointment) {
+                    appointment.statusId = 'S3'
+                    await appointment.save()
+                }
+
+                //send email
+                await emailService.sendAttachment(data);
+                resolve({
+                    errCode: 0,
+                    errMessage: 'Send remedy success'
+                })
+            }
+        } catch (e) {
+            reject(e)
+        }
+    }
+    )
+}
+
 module.exports = {
     getTopDoctorHome,
     getAllDoctors,
@@ -451,5 +493,6 @@ module.exports = {
     getScheduleByDateService,
     getExtraInfoDoctorByIdService,
     getProfileDoctorByIdService,
-    getListPatientService
+    getListPatientService,
+    sendRemedyService
 }

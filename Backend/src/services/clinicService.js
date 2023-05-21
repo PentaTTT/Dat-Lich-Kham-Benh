@@ -74,7 +74,7 @@ let getDetailClinicByIdService = (inputId) => {
                     })
                     data.doctorClinic = doctorClinic;
                 } else data = {}
-                console.log('check data clinic ', data)
+
                 resolve({
                     errCode: 0,
                     errMessage: 'ok',

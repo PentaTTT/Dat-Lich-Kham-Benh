@@ -5,9 +5,62 @@ import logo from '../../assets/images/logo.png';
 import { FormattedMessage } from 'react-intl';
 import { LANGUAGES } from '../../utils';
 import { changeLanguageApp } from '../../store/actions/appActions';
-import { withRouter } from 'react-router'
+import { withRouter } from 'react-router';
+import { getAllSpecialtyService, getAllClinicService, getAllDoctorsService } from '../../services/userService'
+
+const placeholderText = ["Tìm chuyên khoa", "Tìm phòng khám", "Tìm bác sĩ"];
 
 class HomeHeader extends Component {
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            index: 0,
+            isShowSearchResult: false,
+            dataSpecialty: [],
+            dataClinic: [],
+            dataDoctor: [],
+            search: ''
+        }
+    }
+
+    async componentDidMount() {
+        let res = await getAllSpecialtyService();
+        if (res && res.errCode === 0) {
+            this.setState({
+                dataSpecialty: res.data
+            })
+        }
+
+        let res2 = await getAllClinicService();
+        if (res2 && res2.errCode === 0) {
+            this.setState({
+                dataClinic: res2.data
+            })
+        }
+
+        let res3 = await getAllDoctorsService();
+        if (res3 && res3.errCode === 0) {
+            this.setState({
+                dataDoctor: res3.data
+            })
+        }
+
+        setInterval(() => {
+            let copyIndex = this.state.index
+            if (copyIndex === 2) {
+                this.setState({
+                    index: 0
+                })
+            } else (
+                this.setState({
+                    index: copyIndex + 1
+                })
+            )
+
+        }, 2000)
+
+    }
 
     //onclick
     changeLanguage = (language) => {
@@ -21,35 +74,87 @@ class HomeHeader extends Component {
         }
     }
 
+    changePlaceholder = () => {
+        placeholderText.map((item, index) => {
+            setInterval(() => {
+
+            })
+        })
+    }
+
+    handleOnChangeInput = (event) => {
+        this.setState({
+            isShowSearchResult: true,
+            search: event.target.value
+        })
+        if (event.target.value === '') {
+            this.setState({
+                isShowSearchResult: false
+            })
+        }
+    }
+
+    handleOnClickSearch = () => {
+        let bool = this.state.isShowSearchResult
+        bool === false ?
+            this.setState({
+                isShowSearchResult: true
+            })
+            :
+            this.setState({
+                isShowSearchResult: false
+            })
+    }
+
+    handleViewDetailSpecialty = (item) => {
+        this.props.history.push(`/detail-specialty/${item.id}`)
+    }
+
+    handleViewDetailDoctor = (doctor) => {
+        this.props.history.push(`/detail-doctor/${doctor.id}`)
+    }
+
+    handleViewDetailClinic = (item) => {
+        this.props.history.push(`/detail-clinic/${item.id}`)
+    }
+
     render() {
         let language = this.props.language;
-        // console.log("check user info>>>>", this.props.userInfo)
+        let settings = {
+            dots: false,
+            infinite: false,
+            speed: 500,
+            slidesToShow: 4,
+            slidesToScroll: 2,
+        }
+        let { dataSpecialty, dataClinic, dataDoctor, search } = this.state;
+
         return (
             <>
                 <div className='homeheader-container'>
                     <div className='header-content'>
-                        <div className='header-content-left'>
-                            <i className='fas fa-bars'></i>
+                        <div className='header-content-left' >
+                            <i className='fas fa-bars' onClick={() => { this.props.history && this.props.history.push(`/login`) }}></i>
                             <img className='header-logo' src={logo} onClick={() => this.handleReturnHome()} />
                             <div className='header-logo'></div>
                         </div>
 
                         <div className='header-content-center'>
-                            <div className='child-content'>
+                            <div className='child-content' onClick={() => this.props.handleScrollToSpecialty()}>
                                 <div><b> <FormattedMessage id="home-header.speciality" /> </b></div>
                                 <div className='sub-title'><FormattedMessage id="home-header.search-doctor" /></div>
                             </div>
-                            <div className='child-content'>
+                            <div className='child-content' onClick={() => this.props.handleScrollToClinic()}>
                                 <div><b><FormattedMessage id="home-header.health-facility" /></b></div>
                                 <div className='sub-title'><FormattedMessage id="home-header.select-room" /></div>
                             </div>
-                            <div className='child-content'>
+                            <div className='child-content' onClick={() => this.props.handleScrollToDoctor()}>
                                 <div><b><FormattedMessage id="home-header.doctor" /></b></div>
                                 <div className='sub-title'><FormattedMessage id="home-header.select-doctor" /></div>
                             </div>
-                            <div className='child-content'>
-                                <div><b><FormattedMessage id="home-header.fee" /></b></div>
-                                <div className='sub-title'><FormattedMessage id="home-header.health-check" /></div>
+                            <div className='child-content' onClick={() => this.props.handleScrollToHandbook()}>
+                                <div><b><FormattedMessage id="home-header.handbook" /></b></div>
+                                <div className='sub-title'><FormattedMessage id="home-header.health-handbook" /></div>
                             </div>
                         </div>
 
@@ -70,9 +175,55 @@ class HomeHeader extends Component {
                         <div className='content-up'>
                             <div className='title'><FormattedMessage id="banner.title1" /></div>
                             <div className='sub-title'><FormattedMessage id="banner.title2" /></div>
-                            <div className='search'>
-                                <i className='fas fa-search'></i>
-                                <input type="text" placeholder='Tìm chuyên khoa khám bệnh' />
+                            <div className='search-form'>
+                                <div className='search'>
+                                    <i className='fas fa-search' onClick={() => this.handleOnClickSearch()}></i>
+                                    <input type="text" placeholder={placeholderText[this.state.index]}
+                                        onChange={(event) => this.handleOnChangeInput(event)}
+                                    />
+                                </div>
+                                {this.state.isShowSearchResult === true ?
+                                    <div className='search-result'>
+                                        <h4>Chuyên khoa</h4>
+                                        {dataSpecialty && dataSpecialty.length > 0 &&
+                                            dataSpecialty.filter((item) => {
+                                                return search.toLowerCase() === '' ? item : item.name.toLowerCase().includes(search)
+                                            }).map((item, index) => {
+                                                return <div key={index}
+                                                    className='search-result-content'
+                                                    onClick={() => this.handleViewDetailSpecialty(item)}
+                                                >{item.name}</div>
+                                            })
+                                        }
+                                        <h4>Phòng khám</h4>
+                                        {dataClinic && dataClinic.length > 0 &&
+                                            dataClinic.filter((item) => {
+                                                return search.toLowerCase() === '' ? item : item.name.toLowerCase().includes(search)
+                                            }).map((item, index) => {
+                                                return <div key={index}
+                                                    className='search-result-content'
+                                                    onClick={() => this.handleViewDetailClinic(item)}
+                                                >{item.name}</div>
+                                            })
+                                        }
+                                        <h4>Bác sĩ</h4>
+                                        {dataDoctor && dataDoctor.length > 0 &&
+                                            dataDoctor.filter((item) => {
+                                                return search.toLowerCase() === '' ? item : item.firstName.toLowerCase().includes(search) ||
+                                                    item.lastName.toLowerCase().includes(search)
+                                            }).map((item, index) => {
+                                                return <div key={index}
+                                                    className='search-result-content'
+                                                    onClick={() => this.handleViewDetailDoctor(item)}
+                                                >{item.firstName} {item.lastName}</div>
+                                            })
+
+                                        }
+
+                                    </div>
+                                    :
+                                    <></>
+                                }
                             </div>
                         </div>
 
@@ -117,7 +268,7 @@ class HomeHeader extends Component {
                             </div>
                         </div>
 
-                    </div>
+                    </div >
                 }
             </>
         );

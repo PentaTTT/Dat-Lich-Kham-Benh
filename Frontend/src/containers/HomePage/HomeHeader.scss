@@ -4,7 +4,7 @@
     background-color: white;
     border-bottom: 1px solid #eeeeee;
     padding: 0 40px;
-    position: sticky;
+    // position: sticky;
     top: 0;
     z-index: 11;
 
@@ -43,6 +43,8 @@
             color: black;
 
             .child-content {
+                cursor: pointer;
+
                 .subtitle {
                     font-size: 12px;
                     font-weight: 400;
@@ -135,27 +137,58 @@
             margin-bottom: 15px;
         }
 
-        .search {
-            width: fit-content;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 0 auto;
-            padding: 10px;
-            color: black;
-            border-radius: 25px;
-            background: rgb(255, 208, 0);
+        .search-form {
+            position: relative;
 
-            i {
-                margin: 0 10px;
+            .search {
+                width: fit-content;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin: 0 auto;
+                padding: 10px;
+                color: black;
+                border-radius: 25px;
+                background: rgb(255, 208, 0);
+
+                i {
+                    margin: 0 10px;
+                }
+
+                input {
+                    height: 30px;
+                    width: 360px;
+                    background: transparent;
+                    border: none;
+                    outline: none;
+                }
             }
 
-            input {
-                height: 30px;
-                width: 360px;
-                background: transparent;
-                border: none;
-                outline: none;
+            .search-result {
+                position: absolute;
+                top: 60px;
+                left: 37%;
+                right: auto;
+                border-radius: 2px;
+                min-height: 50px;
+                max-height: 200px;
+                background: #fff;
+                text-align: left;
+                overflow: auto;
+                border: 1px solid #ddd;
+                width: 400px;
+
+                h4 {
+                    padding-left: 5px;
+                    margin-top: 3px
+                }
+
+                .search-result-content {
+                    padding-left: 5px;
+                    color: rgb(48, 48, 230);
+                    cursor: pointer;
+                    padding-top: 3px;
+                }
             }
         }
     }

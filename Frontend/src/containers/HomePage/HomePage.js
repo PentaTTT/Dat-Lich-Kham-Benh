@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import { connect } from 'react-redux';
 import HomeHeader from './HomeHeader';
 import Specialty from './Section/Specialty';
@@ -12,6 +12,26 @@ import Footer from './Footer';
 import About from './Section/About';
 
 class HomePage extends Component {
+    constructor(props) {
+        super(props)
+        this.specialtyRef = createRef()
+        this.clinicRef = createRef()
+        this.doctorRef = createRef()
+        this.handbookRef = createRef()
+    }
+
+    handleScrollToSpecialty = () => {
+        this.specialtyRef.current?.scrollIntoView({ behavior: 'smooth' })
+    }
+    handleScrollToClinic = () => {
+        this.clinicRef.current?.scrollIntoView({ behavior: 'smooth' })
+    }
+    handleScrollToDoctor = () => {
+        this.doctorRef.current?.scrollIntoView({ behavior: 'smooth' })
+    }
+    handleScrollToHandbook = () => {
+        this.handbookRef.current?.scrollIntoView({ behavior: 'smooth' })
+    }
 
     render() {
         let settings = {
@@ -24,17 +44,28 @@ class HomePage extends Component {
 
         return (
             <div>
-                <HomeHeader isShowBanner={true} />
-                <Specialty settings={settings} />
+                <HomeHeader isShowBanner={true}
+                    handleScrollToSpecialty={this.handleScrollToSpecialty}
+                    handleScrollToClinic={this.handleScrollToClinic}
+                    handleScrollToDoctor={this.handleScrollToDoctor}
+                    handleScrollToHandbook={this.handleScrollToHandbook}
+                />
+
+                <div ref={this.specialtyRef}><Specialty name="specialty" settings={settings} /></div>
                 <div style={{ height: '2px', backgroundColor: '#eee' }}></div>
-                <MedicalFacility settings={settings} />
+
+                <div ref={this.clinicRef}><MedicalFacility settings={settings} /></div>
                 <div style={{ height: '2px', backgroundColor: '#eee' }}></div>
-                <OutstandingDoctor settings={settings} />
+
+                <div ref={this.doctorRef}><OutstandingDoctor settings={settings} /></div>
                 <div style={{ height: '2px', backgroundColor: '#eee' }}></div>
-                <HandBook settings={settings} />
+
+                <div ref={this.handbookRef}><HandBook settings={settings} /></div>
                 <div style={{ height: '2px', backgroundColor: '#eee' }}></div>
+
                 <About />
                 <div style={{ height: '2px', backgroundColor: '#eee' }}></div>
+
                 <Footer />
             </div >
         );

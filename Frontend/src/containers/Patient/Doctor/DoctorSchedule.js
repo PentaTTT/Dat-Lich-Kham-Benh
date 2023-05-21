@@ -111,15 +111,27 @@ class DoctorSchedule extends Component {
         })
     }
 
-    handleClickCloseBookingModal = () => {
+    handleClickCloseBookingModal = async () => {
         this.setState({
             isOpenModal: false
         })
+        //get schedule again
+        let doctorId = this.props.doctorIdProps
+        let date = this.state.dataScheduleModal.date;
+        let convertDate = moment(new Date(date)).add(date, 'days').startOf('day').valueOf()
+        let res = await getScheduleByDateService(doctorId, convertDate);
+
+        if (res && res.errCode === 0) {
+            this.setState({
+                availableTime: res.data ? res.data : []
+            })
+        }
     }
 
     render() {
         let { arrSelectDays, availableTime, isOpenModal, dataScheduleModal } = this.state
         let { language } = this.props
+
         return (
             <>
                 <div className='doctor-schedule-container'>

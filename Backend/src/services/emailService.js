@@ -32,6 +32,33 @@ let sendSimpleEmail = async (dataSend) => {
     });
 }
 
+let sendAttachment = async (dataSend) => {
+    let transporter = nodemailer.createTransport({
+        host: "smtp.gmail.com",
+        port: 587,
+        secure: false,
+        auth: {
+            user: process.env.EMAIL_APP, // generated ethereal user
+            pass: process.env.EMAIL_APP_PASSWORD // generated ethereal password
+        },
+    });
+
+    // send mail with defined transport object
+    let info = await transporter.sendMail({
+        from: '"Duy Tân 👻" <duytan0220@gmail.com>', // sender address
+        to: dataSend.email, // list of receivers
+        subject: "Thông tin đặt lịch khám bệnh", // Subject line
+        html: getBodyHTMLEmailRemedy(dataSend),
+        attachments: [
+            {
+                filename: `remedy-${dataSend.patientId}-${new Date().getTime()}.png`,
+                content: dataSend.imgBase64.split("base64,")[1],
+                encoding: 'base64'
+            }
+        ],
+    });
+}
+
 let getBodyHTMLEmail = (dataSend) => {
     let result = ''
     if (dataSend.language === 'en') {
@@ -74,6 +101,29 @@ let getBodyHTMLEmail = (dataSend) => {
     return result
 }
 
+let getBodyHTMLEmailRemedy = (dataSend) => {
+    let result = ''
+    if (dataSend.language === 'en') {
+        result = `  
+        <h3>Hello ${dataSend.patientName}</h3>
+        <p>You have received this email because you had medical examination at website Duy Tân Care. </p>
+        <p>Information about your medical examination has been sent in the attachment: </p>
+
+        <div> Best regards!</div>`
+    }
+    if (dataSend.language === 'vi') {
+        result = `  
+        <h3>Xin chào ${dataSend.patientName}</h3>
+        <p>Bạn nhận được email này vì đã khám bệnh tại website Duy Tân Care. </p>
+        <p>Thông tin hóa đơn/ đơn thuốc của bạn đã được gửi trong file đính kèm: </p>
+
+        <div> Xin chân thành cảm ơn!</div>`
+    }
+
+    return result
+}
+
 module.exports = {
-    sendSimpleEmail: sendSimpleEmail
+    sendSimpleEmail: sendSimpleEmail,
+    sendAttachment: sendAttachment,
 }

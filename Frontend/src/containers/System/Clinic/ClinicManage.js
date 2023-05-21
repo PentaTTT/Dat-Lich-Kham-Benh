@@ -83,25 +83,24 @@ class ClinicManage extends Component {
     }
 
     render() {
-        console.log('check state: ', this.state)
         return (
             <div className='specialty-manage-container'>
-                <div className='specialty-title title'>Quản lý phòng khám</div>
+                <div className='specialty-title title'><FormattedMessage id="clinic-manage.title" /></div>
                 <div className='specialty-content row'>
                     <div className='col-6 form-group'>
-                        <label>Tên phòng khám</label>
+                        <label><FormattedMessage id="clinic-manage.name" /></label>
                         <input className='form-control' type='text' value={this.state.name}
                             onChange={(event) => this.handleOnchangeInput(event, 'name')}
                         />
                     </div>
                     <div className='col-6 form-group'>
-                        <label>Ảnh phòng khám</label>
+                        <label><FormattedMessage id="clinic-manage.image" /></label>
                         <input className='form-control-file' type='file'
                             onChange={(event) => this.handleOnchangeImg(event)}
                         />
                     </div>
                     <div className='col-6 form-group'>
-                        <label>Địa chỉ phòng khám</label>
+                        <label><FormattedMessage id="clinic-manage.address" /></label>
                         <input className='form-control' type='text' value={this.state.address}
                             onChange={(event) => this.handleOnchangeInput(event, 'address')}
                         />
@@ -117,7 +116,7 @@ class ClinicManage extends Component {
                     <div className='col-12'>
                         <button className='btn-add btn'
                             onClick={() => this.handleSaveClinic()}
-                        >Save</button>
+                        ><FormattedMessage id="specialty-manage.save-btn" /></button>
                     </div>
                 </div>
             </div>

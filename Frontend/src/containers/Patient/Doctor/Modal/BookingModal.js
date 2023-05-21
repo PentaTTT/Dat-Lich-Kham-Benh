@@ -165,14 +165,19 @@ class BookingModal extends Component {
         return <></>
     }
 
+    clearDataModal = () => {
+        // this.setState({
+        //     fullName: '',
+        // })
+    }
+
     render() {
-        //toggle={}
         let { isOpenModal, closeBookingModal, dataScheduleModal } = this.props;
         let doctorId = '';
         if (dataScheduleModal && !_.isEmpty(dataScheduleModal)) {
             doctorId = dataScheduleModal.doctorId
         }
-        console.log('check nhẹ cái props: ', this.props)
+
         return (
             <>
                 <Modal isOpen={isOpenModal} className='booking-modal-container'
@@ -183,7 +188,7 @@ class BookingModal extends Component {
                         <div className='booking-modal-header'>
                             <span className='left'><FormattedMessage id="patient.booking-modal.title" /></span>
                             <span className='right'
-                                onClick={closeBookingModal}>
+                                onClick={() => { closeBookingModal(); this.clearDataModal() }}>
                                 <i className='fas fa-times'></i></span>
                         </div>
                         <div className='booking-modal-body'>
@@ -262,7 +267,7 @@ class BookingModal extends Component {
                                 onClick={() => this.handleConfirmBooking()}
                             ><FormattedMessage id="patient.booking-modal.confirm" /></button>
                             <button className='btn-booking-cancel'
-                                onClick={closeBookingModal}
+                                onClick={() => { closeBookingModal(); this.clearDataModal() }}
                             ><FormattedMessage id="patient.booking-modal.cancel" /></button>
                         </div>
                     </div>

@@ -48,10 +48,10 @@ class Menu extends Component {
                         </div>
                     </Fragment>
                 ) : (
-                        <Link to={link} className="menu-link" onClick={onLinkClick}>
-                            <FormattedMessage id={name} />
-                        </Link>
-                    )}
+                    <Link to={link} className="menu-link" onClick={onLinkClick}>
+                        <FormattedMessage id={name} />
+                    </Link>
+                )}
             </li>
         );
     }
@@ -189,16 +189,22 @@ class Navigator extends Component {
         return (
             <Fragment>
                 <ul className="navigator-menu list-unstyled">
+                    <i className='fas fa-bars' style={{ textAlign: 'center', width: '40px', paddingTop: '13px', cursor: 'pointer' }}
+                        onClick={() => { this.props.history && this.props.history.push(`/home`) }}
+                    >
+                    </i>
                     {
                         menus.map((group, groupIndex) => {
                             return (
                                 <Fragment key={groupIndex}>
+
                                     <MenuGroupWithRouter name={group.name}>
                                         {group.menus ? (
                                             group.menus.map((menu, menuIndex) => {
                                                 const isMenuHasSubMenuActive = this.isMenuHasSubMenuActive(location, menu.subMenus, menu.link);
                                                 const isSubMenuOpen = this.state.expandedMenu[groupIndex + '_' + menuIndex] === true;
                                                 return (
+
                                                     <MenuWithRouter
                                                         key={menuIndex}
                                                         active={isMenuHasSubMenuActive}
@@ -219,6 +225,7 @@ class Navigator extends Component {
                                                             />
                                                         ))}
                                                     </MenuWithRouter>
+
                                                 );
                                             })
                                         ) : null}

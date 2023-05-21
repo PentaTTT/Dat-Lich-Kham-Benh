@@ -6,8 +6,8 @@
         "select-room": "Choose hospital clinic",
         "doctor": "Doctor",
         "select-doctor": "Choose a good doctor",
-        "fee": "Checkup package",
-        "health-check": "General health check",
+        "handbook": "Handbooks",
+        "health-handbook": "Health handbook",
         "support": "Support",
         "welcome": "Welcome, "
     },
@@ -31,8 +31,8 @@
             "user-manage": "Users",
             "doctor-manage": "Doctors management",
             "admin-manage": "Admins management",
-            "crud": "CRUD user",
-            "crud-redux": "CRUD redux",
+            "crud": "Account management",
+            "crud-redux": "Users management",
             "clinic": "Clinics",
             "clinic-manage": "Clinics management",
             "specialty": "Specialties",
@@ -46,7 +46,7 @@
         }
     },
     "user-manage": {
-        "add": "Add new user",
+        "title": "User Management",
         "email": "Email",
         "password": "Password",
         "firstName": "First name",
@@ -115,5 +115,18 @@
             "priceTitle": "Free to booking",
             "price": "Price"
         }
+    },
+    "clinic-manage": {
+        "title": "Clinic management",
+        "name": "Clinic's name",
+        "image": "Clinic's image",
+        "address": "Clinic's address",
+        "save-btn": "Save"
+    },
+    "specialty-manage": {
+        "title": "Specialty Management",
+        "name": "Specialty's name",
+        "image": "Specialty's image",
+        "save-btn": "Save"
     }
 }

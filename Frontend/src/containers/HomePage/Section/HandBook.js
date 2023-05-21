@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import Slider from "react-slick";
-import specialtyImg from "../../../assets/handBook/handbook-1.jpg"
+import specialtyImg from "../../../assets/handBook/handbook-1.png"
 
 class HandBook extends Component {
 
@@ -22,33 +22,35 @@ class HandBook extends Component {
                             <Slider {...this.props.settings}>
                                 <div className=' specialty-customize'>
                                     <img src={specialtyImg} />
-                                    <h4>Cơ xương khớp</h4>
+                                    <h4>Cẩm nang 1</h4>
                                 </div>
                                 <div className=' specialty-customize'>
                                     <img src={specialtyImg} />
-                                    <h4>Cơ xương khớp</h4>
+                                    <h4>Cẩm nang 2</h4>
                                 </div>
                                 <div className=' specialty-customize'>
                                     <img src={specialtyImg} />
-                                    <h4>Cơ xương khớp</h4>
+                                    <h4>Cẩm nang 3</h4>
                                 </div>
                                 <div className=' specialty-customize'>
                                     <img src={specialtyImg} />
-                                    <h4>Cơ xương khớp</h4>
+                                    <h4>Cẩm nang 4</h4>
                                 </div>
                                 <div className=' specialty-customize'>
                                     <img src={specialtyImg} />
-                                    <h4>Cơ xương khớp</h4>
+                                    <h4>Cẩm nang 5</h4>
                                 </div>
                                 <div className=' specialty-customize'>
                                     <img src={specialtyImg} />
-                                    <h4>Cơ xương khớp</h4>
+                                    <h4>Cẩm nang 6</h4>
                                 </div>
                                 <div className=' specialty-customize'>
-                                    <h4>7</h4>
+                                    <img src={specialtyImg} />
+                                    <h4>Cẩm nang</h4>
                                 </div>
                                 <div className=' specialty-customize'>
-                                    <h4>8</h4>
+                                    <img src={specialtyImg} />
+                                    <h4>Cẩm nang</h4>
                                 </div>
                             </Slider>
                         </div>

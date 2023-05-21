@@ -221,12 +221,12 @@ class UserRedux extends Component {
 
         return (
             <div className='user-redux-container'>
-                <div className="title" ><FormattedMessage id="user-manage.add" /></div>
+                <div className="title py-3" ><FormattedMessage id="user-manage.title" /></div>
                 <div className='col-12'>{isLoadingGender == true ?? 'loading gender'}</div>
                 <div className='user-redux-body'>
                     <div className='container'>
                         <div className='row'>
-                            <div className='col-12 my-3'><FormattedMessage id="user-manage.add" /></div>
+
                             <div className='col-6'>
                                 <label><FormattedMessage id="user-manage.email" /> </label>
                                 <input className='form-control' type='email'

@@ -32,12 +32,10 @@ class OutStandingDoctor extends Component {
     }
 
     handleViewDetailDoctor = (doctor) => {
-        console.log('check detail>>', doctor)
         this.props.history.push(`/detail-doctor/${doctor.id}`)
     }
 
     render() {
-        console.log('check>>>>> top doctor ', this.props.topDoctors)
         // let settings = {
         //     dots: true,
         //     infinity: false,

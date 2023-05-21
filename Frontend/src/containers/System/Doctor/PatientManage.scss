@@ -1,9 +1,29 @@
+div._loading_overlay_wrapper {
+    position: unset;
+
+    ._loading_overlay_overlay {
+        z-index: 10000;
+    }
+}
+
 .patient-manage-container {
+    .patient-manage-title {}
 
     .patient-manage-body {
         padding: 15px 20px;
         margin-left: 200px;
+
+        .user-table {
+            .btn-edit {}
+
+            .btn-delete {
+                color: rgb(87, 87, 223) !important;
+
+                &:hover {
+                    color: rgb(12, 12, 184) !important;
+                }
+            }
+        }
     }
 
-    .patient-manage-title {}
 }

@@ -43,7 +43,8 @@ class UserManage extends Component {
         let arrUsers = this.state.arrUsers;
         return (
             <div className="users-container">
-                <ModalUser
+                <div className='title'>Management</div>
+                {/* <ModalUser
                     isOpen={this.state.isOpenModalUser}
                     toggleOpen={this.toggleUserModal}
                 />
@@ -83,7 +84,7 @@ class UserManage extends Component {
                         })}
 
                     </table>
-                </div>
+                </div> */}
             </div>
         );
     }

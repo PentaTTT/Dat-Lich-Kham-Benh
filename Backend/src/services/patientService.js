@@ -1,7 +1,8 @@
 import db from '../models/index';
 require('dotenv').config();
-import emailService from './emailService'
-import { v4 as uuidv4 } from 'uuid'
+import emailService from './emailService';
+import { v4 as uuidv4 } from 'uuid';
+const { Op } = require("sequelize");
 
 let buildUrlEmail = (doctorId, token) => {
     let result = `${process.env.REACT_URL}/verify-booking?token=${token}&doctorId=${doctorId}`
@@ -39,7 +40,11 @@ let postBookAppointmentService = (data) => {
                     let booking = await db.Booking.findOrCreate({
                         where: {
                             patientId: user[0].id,
-                            date: new Date(data.date).toLocaleDateString().slice(0, 19).replace('T', ' ')
+                            [Op.or]: [
+                                { statusId: 'S1' },
+                                { statusId: 'S2' }
+                            ]
+                            // date: new Date(data.date).toLocaleDateString().slice(0, 19).replace('T', ' ')
                         },
                         defaults: {
                             statusId: 'S1',
@@ -62,6 +67,18 @@ let postBookAppointmentService = (data) => {
                             redirectLink: buildUrlEmail(data.doctorId, token)
 
                         })
+
+                        //delete scheduleTime
+                        let schedule = await db.Schedule.findOne({
+                            where: {
+                                doctorId: data.doctorId,
+                                timeType: data.timeType,
+                                date: data.date,
+                            },
+                        })
+                        if (schedule) {
+                            await schedule.destroy();
+                        }
                     }
                     resolve({
                         data: booking,

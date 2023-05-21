@@ -6,8 +6,8 @@
         "select-room": "Chọn bệnh viên phòng khám",
         "doctor": "Bác sĩ",
         "select-doctor": "Chọn bác sĩ giỏi",
-        "fee": "Gói khám",
-        "health-check": "Khám sức khỏe tổng quát",
+        "handbook": "Cẩm nang",
+        "health-handbook": "Cẩm nang về sức khỏe",
         "support": "Hỗ trợ",
         "welcome": "Xin chào, "
     },
@@ -31,8 +31,8 @@
             "user-manage": "Người dùng",
             "doctor-manage": "Quản lý bác sĩ",
             "admin-manage": "Quản lý admin",
-            "crud": "CRUD user",
-            "crud-redux": "CRUD redux",
+            "crud": "Quản lý tài khoản",
+            "crud-redux": "Quản lý người dùng",
             "clinic": "Phòng khám",
             "clinic-manage": "Quản lý phòng khám",
             "specialty": "Chuyên khoa",
@@ -46,7 +46,7 @@
         }
     },
     "user-manage": {
-        "add": "Thêm mới người dùng",
+        "title": "Quản lý người dùng",
         "email": "Email",
         "password": "Mật khẩu",
         "firstName": "Họ",
@@ -114,5 +114,18 @@
             "priceTitle": "Miễn phí đặt lịch",
             "price": "Giá khám: "
         }
+    },
+    "clinic-manage": {
+        "title": "Quản lý phòng khám",
+        "name": "Tên phòng khám",
+        "image": "Ảnh phòng khám",
+        "address": "Địa chỉ phòng khám",
+        "save-btn": "Lưu"
+    },
+    "specialty-manage": {
+        "title": "Quản lý chuyên khoa",
+        "name": "Tên chuyên khoa",
+        "image": "Ảnh chuyên khoa",
+        "save-btn": "Lưu"
     }
 }
