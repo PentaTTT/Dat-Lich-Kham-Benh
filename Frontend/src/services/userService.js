@@ -96,9 +96,16 @@ const getListPatientService = (data) => {
     return axios.get(`/api/get-list-patient?doctorId=${data.doctorId}&date=${data.date}`)
 }
 
+const getMedicalHistoryService = (data) => {
+    return axios.get(`/api/get-medical-history?doctorId=${data.doctorId}&date=${data.date}`)
+}
+
 const postSendRemedyService = (data) => {
     return axios.post(`/api/send-remedy`, data)
+}
 
+const postCancelStatusService = (data) => {
+    return axios.post('api/post-cancel-status', data)
 }
 
 export {
@@ -121,5 +128,6 @@ export {
     createClinicService,
     getAllClinicService,
     getDetailClinicByIdService,
-    getListPatientService, postSendRemedyService
+    getListPatientService, getMedicalHistoryService,
+    postSendRemedyService, postCancelStatusService,
 }

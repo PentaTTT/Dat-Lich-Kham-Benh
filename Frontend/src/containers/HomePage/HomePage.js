@@ -51,7 +51,7 @@ class HomePage extends Component {
                     handleScrollToHandbook={this.handleScrollToHandbook}
                 />
 
-                <div ref={this.specialtyRef}><Specialty name="specialty" settings={settings} /></div>
+                <div ref={this.specialtyRef}><Specialty settings={settings} /></div>
                 <div style={{ height: '2px', backgroundColor: '#eee' }}></div>
 
                 <div ref={this.clinicRef}><MedicalFacility settings={settings} /></div>

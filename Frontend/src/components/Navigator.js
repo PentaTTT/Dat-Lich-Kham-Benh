@@ -26,6 +26,7 @@ class Menu extends Component {
 
     render() {
         const { name, active, link, children, onClick, hasSubMenu, onLinkClick } = this.props;
+
         return (
             <li className={"menu" + (hasSubMenu ? " has-sub-menu" : "") + ("") + (active ? " active" : "")}>
                 {hasSubMenu ? (
@@ -186,6 +187,7 @@ class Navigator extends Component {
 
     render() {
         const { menus, location, onLinkClick } = this.props;
+
         return (
             <Fragment>
                 <ul className="navigator-menu list-unstyled">

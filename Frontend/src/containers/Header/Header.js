@@ -47,14 +47,13 @@ class Header extends Component {
 
             <div className="header-container">
                 {/* thanh navigator */}
-
                 <div className="header-tabs-container">
                     <Navigator menus={this.state.menuApp} />
                 </div>
 
                 <div className='languages'>
                     <span className='welcome'><FormattedMessage id="home-header.welcome" />
-                        {userInfo && userInfo.firstName ? userInfo.firstName : ''} !</span>
+                        {userInfo && userInfo.lastName ? userInfo.lastName : ''} !</span>
                     <span className={language === LANGUAGES.VI ? 'language-vi actived' : 'language-vi'}
                         onClick={() => this.handleChangeLanguage(LANGUAGES.VI)}>VN</span>
 

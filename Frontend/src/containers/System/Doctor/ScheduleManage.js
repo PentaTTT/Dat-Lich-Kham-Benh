@@ -27,7 +27,28 @@ class ScheduleManage extends Component {
 
     componentDidMount() {
         this.props.fetchAllDoctors();
-        this.props.fetchAllScheduleTimes()
+        this.props.fetchAllScheduleTimes();
+
+        let userInfo = this.props.userInfo;
+        if (userInfo.roleId !== 'R1') {
+            let doctorName = this.buildNameDoctorSelect()
+            this.setState({ selectedDoctor: doctorName });
+        }
+
+    }
+
+    buildNameDoctorSelect = () => {
+        let userInfo = this.props.userInfo
+        let result = {};
+        let { language } = this.props;
+        if (userInfo) {
+            let labelVi = `${userInfo.firstName} ${userInfo.lastName}`;
+            let labelEn = `${userInfo.lastName} ${userInfo.firstName}`;
+
+            result.label = language === LANGUAGES.VI ? labelVi : labelEn;
+            result.value = userInfo.id;
+        }
+        return result
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -57,7 +78,7 @@ class ScheduleManage extends Component {
         let { language } = this.props;
         if (data && data.length > 0) {
             data.map((item, index) => {
-                console.log('check language>>>', language.LANGUAGES)
+
                 let obj = {};
                 let labelVi = `${item.firstName} ${item.lastName}`;
                 let labelEn = `${item.lastName} ${item.firstName}`;
@@ -72,7 +93,7 @@ class ScheduleManage extends Component {
     }
 
     //onchange select
-    handleChangeSelect = async (selectedDoctor) => {
+    handleChangeSelect = (selectedDoctor) => {
         this.setState({ selectedDoctor });
     }
 
@@ -147,7 +168,7 @@ class ScheduleManage extends Component {
 
     render() {
         let { rangeTime } = this.state;
-        let { language } = this.props;
+        let { language, userInfo } = this.props;
         let yesterday = new Date(new Date().setDate(new Date().getDate() - 1))
         return (
 
@@ -163,10 +184,11 @@ class ScheduleManage extends Component {
                             <Select
                                 value={this.state.selectedDoctor}
                                 onChange={this.handleChangeSelect}
-                                options={this.state.listDoctors}
+                                options={userInfo.roleId === 'R1' ? this.state.listDoctors : ''}
                             />
                         </div>
-                        <div className='col-6'>
+
+                        <div className='col-3'>
                             <label><FormattedMessage id="schedule-manage.select-date" /></label>
                             <DatePicker
                                 onChange={this.handleOnChangeDatePicker}
@@ -203,7 +225,8 @@ const mapStateToProps = state => {
         isLoggedIn: state.user.isLoggedIn,
         allDoctors: state.admin.allDoctors,
         language: state.app.language,
-        allScheduleTimes: state.admin.allScheduleTimes
+        allScheduleTimes: state.admin.allScheduleTimes,
+        userInfo: state.user.userInfo
     };
 };
 

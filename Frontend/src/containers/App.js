@@ -23,9 +23,6 @@ import Doctor from '../routes/Doctor';
 import VerifyBooking from './Patient/VerifyBooking';
 import DetailSpecialty from './Patient/Specialty/DetailSpecialty';
 import DetailClinic from './Patient/Clinic/DetailClinic';
-import Specialty from './HomePage/Section/Specialty';
-import MedicalFacility from './HomePage/Section/MedicalFacility';
-import OutstandingDoctor from './HomePage/Section/OutstandingDoctor';
 
 class App extends Component {
 

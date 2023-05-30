@@ -17,7 +17,7 @@ class DoctorSchedule extends Component {
             arrSelectDays: [],
             availableTime: [],
             isOpenModal: false,
-            dataScheduleModal: {}
+            dataScheduleModal: {},
         }
     }
 
@@ -192,6 +192,7 @@ class DoctorSchedule extends Component {
                     closeBookingModal={this.handleClickCloseBookingModal}
                     dataScheduleModal={dataScheduleModal}
                 />
+
             </>
         );
     }

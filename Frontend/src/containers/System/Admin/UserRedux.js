@@ -192,7 +192,6 @@ class UserRedux extends Component {
 
         }
 
-        console.log('check handle edit>>', user);
         this.setState({
             email: user.email,
             password: 'HARDCODE',
@@ -222,7 +221,7 @@ class UserRedux extends Component {
         return (
             <div className='user-redux-container'>
                 <div className="title py-3" ><FormattedMessage id="user-manage.title" /></div>
-                <div className='col-12'>{isLoadingGender == true ?? 'loading gender'}</div>
+                <div className='col-12'>{isLoadingGender === true ?? 'loading gender'}</div>
                 <div className='user-redux-body'>
                     <div className='container'>
                         <div className='row'>

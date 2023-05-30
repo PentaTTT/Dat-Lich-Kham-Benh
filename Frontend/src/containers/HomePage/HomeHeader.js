@@ -74,14 +74,6 @@ class HomeHeader extends Component {
         }
     }
 
-    changePlaceholder = () => {
-        placeholderText.map((item, index) => {
-            setInterval(() => {
-
-            })
-        })
-    }
-
     handleOnChangeInput = (event) => {
         this.setState({
             isShowSearchResult: true,

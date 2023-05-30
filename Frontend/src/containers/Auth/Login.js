@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push } from "connected-react-router";
 import * as actions from "../../store/actions";
-
+import LoginImg from '../../assets/images/login-img2.jpg'
 import './Login.scss';
 import { handleLogin } from '../../services/userService';
 import { isBuffer } from 'lodash';
@@ -23,14 +23,12 @@ class Login extends Component {
         this.setState({
             username: event.target.value
         })
-        console.log(event.target.value)
     }
 
     handleOnChangePassword = (event) => {
         this.setState({
             password: event.target.value
         })
-        console.log(event.target.value)
     }
 
     handleLogin = async () => {
@@ -47,7 +45,6 @@ class Login extends Component {
             }
             if (data && data.errCode === 0) {
                 this.props.userLoginSuccess(data.user);
-                console.log('login success')
             }
         } catch (e) {
             if (e.response) {
@@ -80,45 +77,51 @@ class Login extends Component {
             <div className='login-background'>
                 <div className='login-container'>
                     <div className='login-content row'>
-                        <div className='col-12 text-login'>Login</div>
-                        <div className='col-12 form-group input-login'>
-                            <label>Username:</label>
-                            <input type='text' placeholder='Enter your username' className='form-control'
-                                value={this.state.username}
-                                onChange={(event) => this.handleOnChangeUsername(event)}
-                                onKeyDown={(event) => this.handleKeyDown(event)} />
+                        <div className='col-8 left-content'>
+                            <img src={LoginImg} className="img-fluid" alt="Phone image" />
                         </div>
-                        <div className='col-12 form-group input-login'>
-                            <label>Password:</label>
-                            <div className='custom-input-password'>
-                                <input type={this.state.isShowPassword ? 'text' : 'password'} placeholder='Enter your password'
-                                    className='form-control'
-                                    onChange={(event) => this.handleOnChangePassword(event)}
+                        <div className='col-4 right-content'>
+                            <div className='col-10 text-login mb-4 title'>Đăng nhập</div>
+                            <div className='col-10 form-group input-login'>
+                                <label>Tên đăng nhập:</label>
+                                <input type='text' placeholder='Nhập tên đăng nhập' className='form-control'
+                                    value={this.state.username}
+                                    onChange={(event) => this.handleOnChangeUsername(event)}
                                     onKeyDown={(event) => this.handleKeyDown(event)} />
-                                <span onClick={() => this.handleShowHidePassword()}>
-                                    <i className={this.state.isShowPassword ? 'fas fa-eye' : 'fas fa-eye-slash'}></i>
-                                </span>
                             </div>
-                        </div>
+                            <div className='col-10 form-group input-login'>
+                                <label>Mật khẩu:</label>
+                                <div className='custom-input-password'>
+                                    <input type={this.state.isShowPassword ? 'text' : 'password'} placeholder='Nhập mật khẩu'
+                                        className='form-control'
+                                        onChange={(event) => this.handleOnChangePassword(event)}
+                                        onKeyDown={(event) => this.handleKeyDown(event)} />
+                                    <span onClick={() => this.handleShowHidePassword()}>
+                                        <i className={this.state.isShowPassword ? 'fas fa-eye' : 'fas fa-eye-slash'}></i>
+                                    </span>
+                                </div>
+                            </div>
 
-                        <div className='col-12' style={{ color: 'red' }}>
-                            {this.state.errMessage}
-                        </div>
+                            <div className='col-6' style={{ color: 'red' }}>
+                                {this.state.errMessage}
+                            </div>
 
-                        <div className='col-12'>
-                            <button className='btn-login' onClick={() => this.handleLogin()}>Login</button>
-                        </div>
-                        <div className='col-12'>
-                            <span className='forgot-password'>Forgot your password?</span>
-                        </div>
+                            <div className='col-10'>
+                                <button className='btn-login' onClick={() => this.handleLogin()}>Đăng nhập</button>
+                            </div>
+                            <div className='col-10 text-center'>
+                                <span className='forgot-password'>Quên mật khẩu?</span>
+                            </div>
 
-                        <div className='col-12 text-center mt-3'>
-                            <span className='text-other-login'>Or login with:</span>
-                        </div>
-                        <div className='col-12 social-login'>
+                            <div className='col-10 text-center mt-3'>
+                                <span className='text-other-login'>Hoặc đăng nhập với:</span>
+                            </div>
+                            <div className='col-10 social-login'>
 
-                            <i className="fab fa-google google"></i>
-                            <i className="fab fa-facebook-f facebook"></i>
+                                <i className="fab fa-google google"></i>
+                                <i className="fab fa-facebook-f facebook"></i>
+
+                            </div>
 
                         </div>
                     </div>

@@ -125,10 +125,37 @@ let getListPatient = async (req, res) => {
     }
 }
 
+//get medical history
+let getMedicalHistory = async (req, res) => {
+    try {
+        let data = await doctorService.getMedicalHistoryService(req.query.doctorId, req.query.date);
+        return res.status(200).json(data)
+    } catch (e) {
+        console.log(e)
+        return res.status(200).json({
+            errCode: -1,
+            errMessage: "Error from server"
+        })
+
+    }
+}
+
 //send remedy
 let sendRemedy = async (req, res) => {
     try {
         let info = await doctorService.sendRemedyService(req.body);
+        return res.status(200).json(info)
+    } catch (e) {
+        console.log(e)
+        return res.status(200).json({
+            errCode: -1,
+            errMessage: "Error from server"
+        })
+    }
+}
+let postCancelStatus = async (req, res) => {
+    try {
+        let info = await doctorService.postCancelStatusService(req.body);
         return res.status(200).json(info)
     } catch (e) {
         console.log(e)
@@ -149,5 +176,7 @@ module.exports = {
     getExtraInfoDoctorById: getExtraInfoDoctorById,
     getProfileDoctorById: getProfileDoctorById,
     getListPatient: getListPatient,
-    sendRemedy: sendRemedy
+    getMedicalHistory: getMedicalHistory,
+    sendRemedy: sendRemedy,
+    postCancelStatus: postCancelStatus,
 }
