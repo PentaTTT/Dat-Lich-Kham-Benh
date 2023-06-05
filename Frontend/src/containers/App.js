@@ -23,6 +23,7 @@ import Doctor from '../routes/Doctor';
 import VerifyBooking from './Patient/VerifyBooking';
 import DetailSpecialty from './Patient/Specialty/DetailSpecialty';
 import DetailClinic from './Patient/Clinic/DetailClinic';
+import BackToTopBtn from './HomePage/Section/BackToTopBtn';
 
 class App extends Component {
 
@@ -66,7 +67,6 @@ class App extends Component {
                                 </Switch>
                             </CustomScrollbars>
                         </div>
-
                         {/* <ToastContainer
                             className="toast-container" toastClassName="toast-item" bodyClassName="toast-item-body"
                             autoClose={false} hideProgressBar={true} pauseOnHover={false}

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import BackToTopBtn from './BackToTopBtn';
 
 class About extends Component {
 

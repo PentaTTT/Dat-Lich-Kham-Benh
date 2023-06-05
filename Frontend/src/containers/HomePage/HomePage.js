@@ -10,6 +10,8 @@ import OutstandingDoctor from './Section/OutstandingDoctor';
 import HandBook from './Section/HandBook';
 import Footer from './Footer';
 import About from './Section/About';
+import BackToTopBtn from './Section/BackToTopBtn';
+import ScrollToTop from 'react-scroll-to-top'
 
 class HomePage extends Component {
     constructor(props) {
@@ -18,6 +20,7 @@ class HomePage extends Component {
         this.clinicRef = createRef()
         this.doctorRef = createRef()
         this.handbookRef = createRef()
+        this.topRef = createRef()
     }
 
     handleScrollToSpecialty = () => {
@@ -32,6 +35,9 @@ class HomePage extends Component {
     handleScrollToHandbook = () => {
         this.handbookRef.current?.scrollIntoView({ behavior: 'smooth' })
     }
+    handleScrollToTop = () => {
+        this.topRef.current?.scrollIntoView({ behavior: 'smooth' })
+    }
 
     render() {
         let settings = {
@@ -43,13 +49,14 @@ class HomePage extends Component {
         }
 
         return (
-            <div>
+            <div ref={this.topRef} style={{ position: 'relative' }}>
                 <HomeHeader isShowBanner={true}
                     handleScrollToSpecialty={this.handleScrollToSpecialty}
                     handleScrollToClinic={this.handleScrollToClinic}
                     handleScrollToDoctor={this.handleScrollToDoctor}
                     handleScrollToHandbook={this.handleScrollToHandbook}
                 />
+                <ScrollToTop smooth top="1000" />
 
                 <div ref={this.specialtyRef}><Specialty settings={settings} /></div>
                 <div style={{ height: '2px', backgroundColor: '#eee' }}></div>
@@ -65,8 +72,10 @@ class HomePage extends Component {
 
                 <About />
                 <div style={{ height: '2px', backgroundColor: '#eee' }}></div>
-
+                <ScrollToTop top="20" />
+                <BackToTopBtn handleScrollToTop={this.handleScrollToTop} />
                 <Footer />
+
             </div >
         );
     }
