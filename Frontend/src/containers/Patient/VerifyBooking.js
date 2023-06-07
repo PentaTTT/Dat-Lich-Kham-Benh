@@ -51,13 +51,29 @@ class VerifyBooking extends Component {
             <>
                 <HomeHeader isShowBanner={false} />
                 {statusVerify === false ?
-                    <div>Loading ....</div>
+                    <div
+                        style={{
+                            textAlign: 'center',
+                            color: 'green',
+                            fontSize: '20px',
+                            paddingTop: '50px'
+                        }}> Loading ....</div >
                     :
                     <div>
                         {errCode === 0 ?
-                            <div>Xác nhận lịch hẹn thành công!</div>
+                            <div style={{
+                                textAlign: 'center',
+                                color: 'green',
+                                fontSize: '20px',
+                                paddingTop: '50px'
+                            }}>Xác nhận lịch hẹn thành công!</div>
                             :
-                            <div>Lịch hẹn đã được xác nhận hoặc không tồn tại.</div>
+                            <div style={{
+                                textAlign: 'center',
+                                color: 'red',
+                                fontSize: '20px',
+                                paddingTop: '50px'
+                            }}>Lịch hẹn đã được xác nhận hoặc không tồn tại.</div>
                         }
                     </div>
                 }

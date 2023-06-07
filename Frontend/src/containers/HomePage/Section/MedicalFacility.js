@@ -4,6 +4,7 @@ import './MedicalFacility.scss'
 import { getAllClinicService } from '../../../services/userService'
 import Slider from "react-slick";
 import { withRouter } from 'react-router-dom';
+import { FormattedMessage } from 'react-intl';
 
 class MedicalFacility extends Component {
 
@@ -35,8 +36,8 @@ class MedicalFacility extends Component {
                 <div className='section-share section-medicalFacility'>
                     <div className='section-content'>
                         <div className='section-header'>
-                            <span>Cơ sở y tế nổi bật</span>
-                            <button>Xem thêm</button>
+                            <span><FormattedMessage id='homepage.clinic' /></span>
+                            <button><FormattedMessage id='homepage.more-info' /></button>
                         </div>
 
                         <div className='section-body'>

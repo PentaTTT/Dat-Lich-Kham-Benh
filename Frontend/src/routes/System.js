@@ -8,25 +8,49 @@ import DoctorManage from '../containers/System/Admin/DoctorManage';
 import SpecialtyManage from '../containers/System/Specialty/SpecialtyManage';
 import ClinicManage from '../containers/System/Clinic/ClinicManage';
 import HandbookManage from '../containers/System/Admin/HandbookManage';
+import _ from 'lodash';
+import { USER_ROLE } from '../utils';
+import PrivateRoute from './PrivateRoute';
 
 class System extends Component {
-    render() {
 
-        const { systemMenuPath, isLoggedIn } = this.props;
-        console.log('check login', this.props)
+    constructor(props) {
+        super(props);
+        this.state = {
+            isAdmin: false,
+        }
+    }
+
+    componentDidMount() {
+        const { userInfo } = this.props;
+        if (userInfo && !_.isEmpty(userInfo)) {
+            let role = userInfo.roleId
+            if (role === USER_ROLE.ADMIN) {
+                this.setState({
+                    isAdmin: true
+                })
+            }
+        }
+    }
+
+    render() {
+        const { isLoggedIn } = this.props;
+        const { isAdmin } = this.state
+        console.log('check state', this.props.userInfo.roleId)
         return (
             <>
-                {this.props.isLoggedIn && <Header />}
+                {isLoggedIn && <Header />}
                 <div className="system-container">
                     <div className="system-list">
                         <Switch>
                             <Route path="/system/user-manage" component={UserManage} />
-                            <Route path="/system/user-redux" component={UserRedux} />
-                            <Route path="/system/doctor-manage" component={DoctorManage} />
-                            <Route path="/system/specialty-manage" component={SpecialtyManage} />
-                            <Route path="/system/clinic-manage" component={ClinicManage} />
-                            <Route path="/system/handbook-manage" component={HandbookManage} />
-                            <Route component={() => { return (<Redirect to={systemMenuPath} />) }} />
+                            <PrivateRoute path="/system/user-redux" component={UserRedux} isAdmin={isAdmin} />
+                            <PrivateRoute path="/system/doctor-manage" component={DoctorManage} isAdmin={isAdmin} />
+                            <PrivateRoute path="/system/specialty-manage" component={SpecialtyManage} isAdmin={isAdmin} />
+                            <PrivateRoute path="/system/clinic-manage" component={ClinicManage} isAdmin={isAdmin} />
+                            <PrivateRoute path="/system/handbook-manage" component={HandbookManage} isAdmin={isAdmin} />
+
+                            <Route component={() => { return (<Redirect to='/system/user-redux' />) }} />
                         </Switch>
                     </div>
                 </div>
@@ -38,7 +62,8 @@ class System extends Component {
 const mapStateToProps = state => {
     return {
         systemMenuPath: state.app.systemMenuPath,
-        isLoggedIn: state.user.isLoggedIn
+        isLoggedIn: state.user.isLoggedIn,
+        userInfo: state.user.userInfo
     };
 };
 

@@ -12,8 +12,8 @@
         "welcome": "Xin chào, "
     },
     "banner": {
-        "title1": "Nền tảng y tế",
-        "title2": "Chăm sóc sức khỏe toàn diện",
+        "title1": "Tìm bác sĩ, chuyên khoa dễ dàng",
+        "title2": "Chủ động đặt lịch thông minh và được chăm sóc tận tình",
         "child1": "Khám chuyên khoa",
         "child2": "Khám từ xa",
         "child3": "Khám tổng quát",
@@ -23,6 +23,7 @@
     },
     "homepage": {
         "outstanding-doctor": "Bác sĩ nổi bật tuần qua",
+        "clinic": "Phòng khám nổi bật",
         "more-info": "Xem thêm",
         "specialty": "Chuyên khoa phổ biến"
     },

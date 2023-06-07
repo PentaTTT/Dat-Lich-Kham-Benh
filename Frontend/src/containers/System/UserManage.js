@@ -22,7 +22,6 @@ class UserManage extends Component {
                 arrUsers: response.users
             })
         }
-        console.log('get user from note: ', response)
     }
 
     //handle add
@@ -93,6 +92,7 @@ class UserManage extends Component {
 
 const mapStateToProps = state => {
     return {
+        userInfo: state.user.userInfo
     };
 };
 

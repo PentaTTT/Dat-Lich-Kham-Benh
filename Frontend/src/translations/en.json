@@ -23,6 +23,7 @@
     },
     "homepage": {
         "outstanding-doctor": "Last week's featured doctor",
+        "clinic": "Popular clinic",
         "more-info": "More info",
         "specialty": "Popular specialties"
     },
