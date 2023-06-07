@@ -7,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
         //định danh quan hệ
         static associate(models) {
             // define association here
+            Specialty.hasMany(models.Doctor_Info, { foreignKey: 'specialtyId', as: 'specialtyName' })
         }
     };
     Specialty.init({

@@ -83,6 +83,7 @@
 
 //outstanding Doctor
 .section-outstandingDoctor {
+    height: 400px;
 
     .outer-bgImg {
         display: flex;
@@ -104,6 +105,12 @@
         .border-customize {
             border: 2px solid #ebebeb;
             padding: 20px;
+            min-height: 250px;
+
+            &:hover {
+                color: rgb(255, 191, 72);
+                border: 2px solid rgb(255, 186, 58);
+            }
         }
     }
 }
@@ -121,6 +128,7 @@
     }
 }
 
+//about
 .section-about {
     margin: 0 100px;
     padding: 50px 0;
