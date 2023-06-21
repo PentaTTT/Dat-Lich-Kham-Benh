@@ -7,7 +7,16 @@
                 color: #45c3d2
             }
 
-            .bg-image {}
+
+            @media screen and (max-width: 1400px) {
+                .bg-image {
+                    width: 250px;
+                }
+
+                h4 {
+                    padding-left: 10px
+                }
+            }
         }
     }
 }

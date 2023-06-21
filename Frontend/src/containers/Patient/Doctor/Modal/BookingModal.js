@@ -131,6 +131,7 @@ class BookingModal extends Component {
             this.props.closeBookingModal()
         } else {
             toast.error('Booking a new appointment error')
+            this.props.closeBookingModal()
         }
     }
 
@@ -260,15 +261,20 @@ class BookingModal extends Component {
                                         onChange={(event) => this.handleOnchangeInput(event, 'reason')}
                                     />
                                 </div>
+                                <span style={{ padding: '0px 1rem', color: 'red' }}>
+                                    Chú ý: Các thông tin quý vị điền sẽ được dùng làm hồ sơ khám bệnh, vui lòng điền đầy đủ và đúng thông tin</span>
                             </div>
                         </div>
                         <div className='booking-modal-footer'>
-                            <button className='btn-booking-confirm'
-                                onClick={() => this.handleConfirmBooking()}
-                            ><FormattedMessage id="patient.booking-modal.confirm" /></button>
-                            <button className='btn-booking-cancel'
-                                onClick={() => { closeBookingModal(); this.clearDataModal() }}
-                            ><FormattedMessage id="patient.booking-modal.cancel" /></button>
+                            <div className='btn-booking-group'>
+                                <button className='btn-booking-confirm'
+                                    onClick={() => this.handleConfirmBooking()}
+                                ><FormattedMessage id="patient.booking-modal.confirm" /></button>
+                                <button className='btn-booking-cancel'
+                                    onClick={() => { closeBookingModal(); this.clearDataModal() }}
+                                ><FormattedMessage id="patient.booking-modal.cancel" /></button>
+                            </div>
+
                         </div>
                     </div>
                 </Modal>

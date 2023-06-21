@@ -55,10 +55,31 @@ class DoctorManage extends Component {
     componentDidMount() {
         this.props.fetchAllDoctors();
         this.props.fetchRequiredDoctorInfo();
+
+        let userInfo = this.props.userInfo;
+        if (userInfo.roleId !== 'R1') {
+            let doctorName = this.buildNameDoctorSelect()
+            this.setState({ selectedDoctor: doctorName });
+            // this.handleChangeSelect(this.state.selectedDoctor.value)
+        }
+
+    }
+
+    buildNameDoctorSelect = () => {
+        let userInfo = this.props.userInfo
+        let result = {};
+        let { language } = this.props;
+        if (userInfo) {
+            let labelVi = `${userInfo.firstName} ${userInfo.lastName}`;
+            let labelEn = `${userInfo.lastName} ${userInfo.firstName}`;
+
+            result.label = language === LANGUAGES.VI ? labelVi : labelEn;
+            result.value = userInfo.id;
+        }
+        return result
     }
 
     componentDidUpdate(prevProps, prevState) {
-
         if (prevProps.allDoctors !== this.props.allDoctors) {
             let dataSelect = this.buildDataInputSelect(this.props.allDoctors, 'USERS')
             this.setState({
@@ -96,7 +117,10 @@ class DoctorManage extends Component {
                 listSpecialty: dataSelectSpecialty,
                 listClinic: dataSelectClinic
             })
+        }
 
+        if (prevState.selectedDoctor !== this.state.selectedDoctor && this.props.userInfo.roleId === 'R2') {
+            setTimeout(() => this.handleChangeSelect(this.state.selectedDoctor), 300)
         }
     }
 
@@ -198,6 +222,7 @@ class DoctorManage extends Component {
         this.setState({ selectedOption });
         let { listPayment, listPrice, listProvince, listSpecialty } = this.state;
         let res = await getDetailInfoDoctor(selectedOption.value);
+
         if (res && res.errCode === 0 && res.data && res.data.Markdown) {
             let markdown = res.data.Markdown;
 
@@ -260,7 +285,8 @@ class DoctorManage extends Component {
                 // specialtyId: '',
             })
         }
-        console.log("check selected op: ", res)
+
+        console.log('check res onclick ', res)
     }
 
     //onchange text area    
@@ -283,22 +309,24 @@ class DoctorManage extends Component {
     }
 
     render() {
-        let { hasOldData } = this.state
+        let { hasOldData, selectedDoctor } = this.state
+        let { userInfo } = this.props
+        console.log('check state: ', this.state.listPayment)
         return (
             <div className='doctor-manage-container'>
                 <div className='doctor-manage-title title'><FormattedMessage id="doctor-manage.title" /></div>
                 <div className='more-info'>
-                    <div className='left-content form-group'>
+                    <div className='left-content col-4 form-group'>
                         <label><FormattedMessage id="doctor-manage.select-doctor" /></label>
                         <Select
-                            value={this.state.selectedOption}
+                            value={userInfo.roleId === 'R2' ? selectedDoctor : this.state.selectedOption}
                             onChange={this.handleChangeSelect}
-                            options={this.state.listDoctors}
+                            options={userInfo.roleId === 'R1' ? this.state.listDoctors : ''}
                             placeholder={<FormattedMessage id="doctor-manage.ph-doctor" />}
                         />
                     </div>
 
-                    <div className='right-content'>
+                    <div className='right-content col-8'>
                         <label><FormattedMessage id="doctor-manage.description" /></label>
                         <textarea className='form-control' rows="4"
                             onChange={(event) => this.handleOnChangeText(event, 'description')}
@@ -406,6 +434,7 @@ const mapStateToProps = state => {
         allDoctors: state.admin.allDoctors,
         language: state.app.language,
         allRequiredDoctorInfo: state.admin.allRequiredDoctorInfo,
+        userInfo: state.user.userInfo
     };
 };
 

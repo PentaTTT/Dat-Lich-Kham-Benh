@@ -146,6 +146,72 @@ class DoctorExtraInfo extends Component {
                             </>
                         }
                     </div>
+
+                    {/* <div className='down-content bao-hiem'>
+                        {isShowDetailPrice === false ?
+                            <>
+                                <div className='title-content'>
+                                    Loại bảo hiểm áp dụng:
+                                </div>
+                                <div className='show-hide-content'>
+                                    <span onClick={() => this.showHideDetailPrice(true)}>
+                                        <FormattedMessage id='patient.extra-info-doctor.detail-btn' />
+                                    </span>
+                                </div>
+
+                            </>
+                            :
+                            <>
+                                <div className='title-content'>
+                                    Loại bảo hiểm áp dụng:
+                                </div>
+                                <div className='detail-content'>
+                                    <div className='price-content'>
+                                        <span className='left'>Bảo hiểm y tế nhà nước:</span>
+                                        <span className='right'>
+                                            {extraInfo && extraInfo.priceTypeData && language === LANGUAGES.VI
+                                                &&
+                                                <NumberFormat
+                                                    className='currency'
+                                                    value={extraInfo.priceTypeData.valueVi}
+                                                    displayType='text'
+                                                    thousandSeparator={true}
+                                                    suffix=' VND'
+                                                />
+                                            }
+
+                                            {extraInfo && extraInfo.priceTypeData && language === LANGUAGES.EN
+                                                &&
+                                                <NumberFormat
+                                                    className='currency'
+                                                    value={extraInfo.priceTypeData.valueEn}
+                                                    displayType='text'
+                                                    thousandSeparator={true}
+                                                    suffix=' $'
+                                                />
+                                            }
+                                        </span>
+                                    </div>
+                                    <div className='note-content'>
+                                        {extraInfo && extraInfo.note ? extraInfo.note : ''}
+                                    </div>
+                                </div>
+                                <div className='payment-content'>Bảo hiểm bảo lãnh trực tiếp:
+                                    {extraInfo && extraInfo.paymentTypeData && language === LANGUAGES.VI ?
+                                        extraInfo.paymentTypeData.valueVi : ''}
+
+                                    {extraInfo && extraInfo.paymentTypeData && language === LANGUAGES.EN ?
+                                        extraInfo.paymentTypeData.valueEn : ''}
+                                </div>
+                                <div className='show-hide-content'>
+                                    <span onClick={() => this.showHideDetailPrice(false)}>
+                                        <FormattedMessage id='patient.extra-info-doctor.hide-btn' />
+                                    </span>
+                                </div>
+
+                            </>
+                        }
+                    </div> */}
                 </div>
             </>
         );

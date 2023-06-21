@@ -37,14 +37,14 @@ let postBookAppointmentService = (data) => {
 
                 //create a booking record
                 if (user && user[0]) {
-                    let booking = await db.Booking.findOrCreate({
+                    let [booking, created] = await db.Booking.findOrCreate({
                         where: {
                             patientId: user[0].id,
                             [Op.or]: [
                                 { statusId: 'S1' },
                                 { statusId: 'S2' }
-                            ]
-                            // date: new Date(data.date).toLocaleDateString().slice(0, 19).replace('T', ' ')
+                            ],
+                            date: new Date(data.date).toLocaleDateString().slice(0, 19).replace('T', ' ')
                         },
                         defaults: {
                             statusId: 'S1',
@@ -56,7 +56,7 @@ let postBookAppointmentService = (data) => {
                             token: token
                         }
                     })
-                    if (booking) {
+                    if (created) {
                         //send email
                         await emailService.sendSimpleEmail({
                             receiverEmail: data.email,
@@ -79,14 +79,19 @@ let postBookAppointmentService = (data) => {
                         if (schedule) {
                             await schedule.destroy();
                         }
+                        resolve({
+                            data: booking,
+                            errCode: 0,
+                            errMessage: 'Booking success!'
+                        })
+                    } else {
+                        resolve({
+                            errCode: 2,
+                            errMessage: 'Booking false!'
+                        })
                     }
-                    resolve({
-                        data: booking,
-                        errCode: 0,
-                        errMessage: 'Create patient and booking success!'
-                    })
-                }
 
+                }
             }
         } catch (e) {
             reject(e);

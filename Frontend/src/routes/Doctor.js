@@ -8,6 +8,7 @@ import _ from 'lodash';
 import { USER_ROLE } from '../utils';
 import PrivateRouteDoctor from './PrivateRouteDoctor';
 import UserManage from '../containers/System/UserManage';
+import DoctorManage from '../containers/System/Admin/DoctorManage';
 
 class Doctor extends Component {
     constructor(props) {
@@ -39,7 +40,8 @@ class Doctor extends Component {
                 <div className="system-container">
                     <div className="system-list">
                         <Switch>
-                            <Route path="/system/user-manage" component={UserManage} isDoctor={isDoctor} />
+                            <Route path="/system/dashboard" component={UserManage} isDoctor={isDoctor} />
+                            <Route path="/system/doctor-manage" component={DoctorManage} isDoctor={isDoctor} />
                             <PrivateRouteDoctor path='/doctor/schedule-manage' component={ScheduleManage} isDoctor={isDoctor} />
                             <PrivateRouteDoctor path='/doctor/patient-manage' component={PatientManage} isDoctor={isDoctor} />
 

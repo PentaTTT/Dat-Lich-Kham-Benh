@@ -10,7 +10,7 @@ class Footer extends Component {
             <>
 
                 <div className='footer'>
-                    <p>&copy; 2022 Nguyễn Duy Tân. More information, please visit my github.<a target='_blank' href='#'> &#8594; Click here &#8592;</a></p>
+                    <p>&copy; 2023 Nguyễn Duy Tân. More information, please visit my github.<a target='_blank' href='#'> &#8594; Click here &#8592;</a></p>
                 </div>
 
             </>

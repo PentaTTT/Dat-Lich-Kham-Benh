@@ -16,7 +16,6 @@
         }
 
         .address-content {
-            font-weight: 600;
             color: #333;
         }
     }
@@ -24,6 +23,7 @@
     .down-content {
         .title-content {
             text-transform: uppercase;
+            font-weight: 600;
             color: #333;
             margin-bottom: 5px;
 
@@ -63,5 +63,9 @@
                 color: rgb(185, 48, 185);
             }
         }
+    }
+
+    .bao-hiem {
+        padding-top: 10px;
     }
 }

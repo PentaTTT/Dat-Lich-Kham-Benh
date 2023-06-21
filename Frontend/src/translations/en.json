@@ -7,7 +7,7 @@
         "doctor": "Doctor",
         "select-doctor": "Choose a good doctor",
         "handbook": "Handbooks",
-        "health-handbook": "Health handbook",
+        "health-handbook": "Handbook for health",
         "support": "Support",
         "welcome": "Welcome, "
     },
@@ -25,14 +25,15 @@
         "outstanding-doctor": "Last week's featured doctor",
         "clinic": "Popular clinic",
         "more-info": "More info",
-        "specialty": "Popular specialties"
+        "specialty": "Popular specialties",
+        "handbook": "Handbooks"
     },
     "menu": {
         "admin": {
             "user-manage": "Users",
             "doctor-manage": "Doctors management",
             "admin-manage": "Admins management",
-            "crud": "Account management",
+            "crud": "Dashboard management",
             "crud-redux": "Users management",
             "clinic": "Clinics",
             "clinic-manage": "Clinics management",
@@ -42,6 +43,7 @@
             "handbook-manage": "Handbooks management"
         },
         "doctor": {
+            "doctor": "Doctor's dashboard",
             "schedule-manage": "Schedule management",
             "patient-manage": "Patient management"
         }
@@ -65,7 +67,7 @@
     },
     "doctor-manage": {
         "title": "Manage Doctors Detail Information",
-        "select-doctor": "Select Doctor",
+        "select-doctor": "Doctor Name",
         "description": "Description",
         "price": "Choose price",
         "payment": "Choose payment",

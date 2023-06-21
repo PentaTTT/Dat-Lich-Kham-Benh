@@ -10,51 +10,69 @@ div._loading_overlay_wrapper {
 
     .patient-manage-body {
         padding: 15px 20px;
-        margin-left: 200px;
+        // margin-left: 200px;
+
+        .all-list {
+            margin-top: 30px;
+
+            .btn {
+                border: 1px solid #04AA6D;
+            }
+        }
 
         .button-control {
             margin-top: 30px;
+            float: right;
 
             button {
-                outline: none !important;
+                border: 1px solid #04AA6D;
             }
         }
 
         .user-table {
-
-            .btn-delete {
-                color: rgb(243, 77, 77) !important;
+            .btn-confirm {
+                color: rgb(46, 60, 255) !important;
+                background-color: transparent;
+                width: 50px;
+                border: none;
+                outline: none;
 
                 &:hover {
-                    color: rgb(204, 85, 6) !important;
+                    color: rgb(27, 0, 150) !important;
+                }
+            }
+
+            .btn-delete {
+                color: rgb(238, 39, 39) !important;
+
+                &:hover {
+                    color: rgb(116, 5, 5) !important;
                 }
             }
         }
 
         .history-table {
-            font-family: Arial, Helvetica, sans-serif;
-            border-collapse: collapse;
-            width: 100%;
-
-            table {
-                min-width: 1050px;
+            #TableHistory {
+                font-family: Arial, Helvetica, sans-serif;
+                border-collapse: collapse;
+                width: 100%;
             }
 
-            td,
-            th {
+            #TableHistory td,
+            #TableHistory th {
                 border: 1px solid #ddd;
                 padding: 8px;
             }
 
-            tr:nth-child(even) {
+            #TableHistory tr:nth-child(even) {
                 background-color: #f2f2f2;
             }
 
-            tr:hover {
+            #TableHistory tr:hover {
                 background-color: #ddd;
             }
 
-            th {
+            #TableHistory th {
                 padding-top: 12px;
                 padding-bottom: 12px;
                 text-align: left;
@@ -62,6 +80,6 @@ div._loading_overlay_wrapper {
                 color: white;
             }
         }
-    }
 
+    }
 }

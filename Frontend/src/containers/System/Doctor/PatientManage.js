@@ -6,9 +6,10 @@ import './PatientManage.scss';
 import DatePicker from '../../../components/Input/DatePicker';
 import {
     getListPatientService, getMedicalHistoryService,
-    postSendRemedyService, postCancelStatusService
+    getAllListPatientService, getAllMedicalHistoryService,
+    postSendRemedyService, postCancelStatusService,
+    confirmBookingService
 } from '../../../services/userService';
-import moment from 'moment';
 import RemedyModal from './RemedyModal';
 import { toast } from 'react-toastify';
 import LoadingOverlay from 'react-loading-overlay';
@@ -26,6 +27,7 @@ class PatientManage extends Component {
             isShowLoading: false,
             isShowTablePatient: true,
             isShowTableHistory: false,
+            clickAll: false,
         }
     }
 
@@ -61,23 +63,48 @@ class PatientManage extends Component {
         }
     }
 
+    getAllDataPatient = async () => {
+        let { user } = this.props
+
+        let allPatient = await getAllListPatientService({
+            doctorId: user.id
+        })
+        if (allPatient && allPatient.errCode === 0) {
+            this.setState({
+                dataPatient: allPatient.data
+            })
+        }
+    }
+    getAllDataHistory = async () => {
+        let { user } = this.props
+
+        let history = await getAllMedicalHistoryService({
+            doctorId: user.id,
+        })
+
+        if (history && history.errCode === 0) {
+            this.setState({
+                dataHistory: history.data
+            })
+        }
+    }
+
     async componentDidUpdate(prevProps, prevState) {
-        // if (prevState.dataPatient !== this.state.dataPatient) {
-        //     this.getDataPatient()
-        // }
+
     }
 
     //datepicker
     handleOnChangeDatePicker = (date) => {
         this.setState({
-            currentDate: date[0]
+            currentDate: date[0],
+            clickAll: false
         }, async () => {
             await this.getDataPatient()
         })
     }
 
-    //confirm btn
-    handleConfirm = (item) => {
+    //send remedy btn
+    handleSend = (item) => {
         let data = {
             doctorId: item.doctorId,
             patientId: item.patientId,
@@ -127,6 +154,13 @@ class PatientManage extends Component {
             })
             toast.error('Send remedy error')
         }
+
+        if (this.state.clickAll === false) {
+            await this.getDataPatient()
+        } else {
+            await this.getAllDataPatient()
+            await this.getAllDataHistory()
+        }
     }
 
     //cancel btn
@@ -135,28 +169,67 @@ class PatientManage extends Component {
             doctorId: item.doctorId,
             patientId: item.patientId,
             email: item.patientData.email,
+            date: item.date,
             timeType: item.timeType,
         }
 
         await postCancelStatusService(data)
 
         await this.getDataPatient()
+    }
+
+    //confirm btn
+    handleConfirm = async (item) => {
+        let data = {
+            doctorId: item.doctorId,
+            patientId: item.patientId,
+            email: item.patientData.email,
+            timeType: item.timeType,
+        }
+        await confirmBookingService(data)
+
+        if (this.state.clickAll === false) {
+            await this.getDataPatient()
+        } else {
+            await this.getAllDataPatient()
+            await this.getAllDataHistory()
+        }
 
     }
 
     handleClickPatientBtn = () => {
         this.setState({
-            isShowTablePatient: true
+            isShowTablePatient: true,
         })
+        if (this.state.currentDate !== '') {
+            this.setState({
+                clickAll: false
+            })
+        }
     }
     handleClickHistoryBtn = () => {
         this.setState({
-            isShowTablePatient: false
+            isShowTablePatient: false,
         })
+        if (this.state.currentDate !== '') {
+            this.setState({
+                clickAll: false
+            })
+        }
+    }
+
+    handleClickAllBtn = async () => {
+        this.setState({
+            clickAll: true,
+            currentDate: ''
+        })
+        await this.getAllDataPatient()
+        await this.getAllDataHistory()
+
     }
 
     render() {
-        let { dataPatient, dataHistory, isOpenRemedyModal, dataModal, isShowTablePatient } = this.state
+        let { dataPatient, dataHistory, isOpenRemedyModal, dataModal, isShowTablePatient, clickAll } = this.state
         let { language } = this.props
         console.log('check dataPatient', dataPatient)
         return (
@@ -167,7 +240,7 @@ class PatientManage extends Component {
                     text='Send email...'
                 >
 
-                    <div className='patient-manage-container'>
+                    <div className='patient-manage-container container'>
                         <div className='patient-manage-title title'>Quản lý bệnh nhân khám bệnh</div>
                         <div className='patient-manage-body'>
                             <div className='row px-4'>
@@ -179,29 +252,38 @@ class PatientManage extends Component {
                                         value={this.state.currentDate}
                                     />
                                 </div>
-                                <div className='button-control'>
-                                    <button className={isShowTablePatient === true ? 'btn btn-success px-2' : 'btn btn-outline-success px-2'}
-                                        onClick={() => { this.handleClickPatientBtn() }}
-                                    >Danh sách lịch hẹn</button>
-                                    <button className={isShowTablePatient === false ? 'btn btn-success px-2 mx-2' : 'btn btn-outline-success px-2 mx-2'}
-                                        onClick={() => { this.handleClickHistoryBtn() }}
-                                    >Lịch sử khám</button>
+                                <div className='col-3 all-list'>
+                                    <button className={clickAll === false ? 'btn btn-outline-success px-2' : 'btn btn-success px-2'}
+                                        onClick={() => { this.handleClickAllBtn() }}
+                                    >Hiển thị tất cả ds</button>
                                 </div>
+                                <div className='button-control col-6'>
+                                    <div style={{ float: 'right' }}>
+                                        <button className={isShowTablePatient === true ? 'btn btn-success px-2 mx-2' : 'btn btn-outline-success px-2 mx-2'}
+                                            onClick={() => { this.handleClickPatientBtn() }}
+                                        >Danh sách lịch hẹn</button>
+                                        <button className={isShowTablePatient === false ? 'btn btn-success px-2' : 'btn btn-outline-success px-2'}
+                                            onClick={() => { this.handleClickHistoryBtn() }}
+                                        >Lịch sử khám</button>
+
+                                    </div>
+                                </div>
+
                             </div>
 
                             {this.state.isShowTablePatient === true ?
-                                <div className='col-10 user-table mt-3 mb-5'>
+                                <div className='col-12 user-table mt-3 mb-5'>
                                     <table id="TableManageUser">
                                         <thead>
                                             <tr>
                                                 <th>STT</th>
                                                 <th>Trạng thái</th>
                                                 <th>Họ tên</th>
-                                                <th>Email</th>
+                                                <th>Số điện thoại</th>
                                                 <th>Giới tính</th>
-                                                <th>Thời gian khám</th>
+                                                <th style={{ minWidth: '125px' }}>Thời gian khám</th>
                                                 <th>Lý do khám</th>
-                                                <th>Hành động</th>
+                                                <th style={{ minWidth: '125px' }}>Hành động</th>
                                             </tr>
                                         </thead>
 
@@ -215,27 +297,47 @@ class PatientManage extends Component {
                                                     return (
                                                         <tr key={index}>
                                                             <td>{index + 1}</td>
-                                                            {item.statusId === 'S2' ? <td className='text-primary'>Đã xác nhận</td>
+                                                            {item.statusId === 'S2' ?
+                                                                <td className='text-primary'>Đã xác nhận</td>
                                                                 :
                                                                 <td className='text-warning'>Chờ xác nhận</td>}
                                                             <td>{item.patientData.lastName}</td>
-                                                            <td>{item.patientData.email}</td>
+                                                            <td>{item.patientData.phoneNumber}</td>
                                                             <td>{gender}</td>
                                                             <td>{time}</td>
                                                             <td>{item.reason}</td>
                                                             <td>
-                                                                <button className='btn-edit'
-                                                                    onClick={() => this.handleConfirm(item)}
-                                                                >
-                                                                    <i className='fa fa-check'></i>
-                                                                </button>
+                                                                {item.statusId === 'S1' ?
+                                                                    <>
+                                                                        <button className='btn-confirm'
+                                                                            onClick={() => this.handleConfirm(item)}
+                                                                        >
+                                                                            <i className='fa fa-check'></i>
+                                                                        </button>
 
-                                                                <button className='btn-delete'
-                                                                    onClick={() => this.handleCancel(item)}
-                                                                >
-                                                                    <i className='fas fa-trash'></i>
-                                                                    {/* <i className='fas fa-envelope'></i> */}
-                                                                </button>
+                                                                        <button className='btn-delete'
+                                                                            onClick={() => this.handleCancel(item)}
+                                                                        >
+                                                                            <i className='fas fa-trash'></i>
+                                                                        </button>
+                                                                    </>
+                                                                    :
+                                                                    <>
+                                                                        <button className='btn-edit'
+                                                                            onClick={() => this.handleSend(item)}
+                                                                        >
+                                                                            <i className='fas fa-envelope'></i>
+                                                                        </button>
+                                                                        <button className='btn-delete'
+                                                                            onClick={() => this.handleCancel(item)}
+                                                                        >
+                                                                            <i className='fas fa-trash'></i>
+                                                                        </button>
+                                                                    </>
+                                                                }
+
+
+
                                                             </td>
                                                         </tr>
                                                     )
@@ -253,7 +355,7 @@ class PatientManage extends Component {
                                     </table>
                                 </div>
                                 :
-                                <div className='col-10 history-table mt-3'>
+                                <div className='col-12 history-table mt-3'>
                                     <table id="TableHistory">
                                         <thead>
                                             <tr>
@@ -288,7 +390,7 @@ class PatientManage extends Component {
                                                             <td>{item.reason}</td>
                                                             <td>
                                                                 {/* <button className='btn-edit'
-                                                                    onClick={() => this.handleConfirm(item)}
+                                                                    onClick={() => this.handleSend(item)}
                                                                 >
                                                                     <i className='fa fa-check'></i>
                                                                 </button> */}
@@ -305,7 +407,7 @@ class PatientManage extends Component {
 
                                                 :
                                                 <tr>
-                                                    <td colSpan={7} style={{ textAlign: 'center' }}>
+                                                    <td colSpan={8} style={{ textAlign: 'center' }}>
                                                         No data
                                                     </td>
                                                 </tr>

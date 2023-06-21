@@ -3,7 +3,7 @@
         "speciality": "Chuyên khoa",
         "search-doctor": "Tìm bác sĩ theo chuyên khoa",
         "health-facility": "Cơ sở y tế",
-        "select-room": "Chọn bệnh viên phòng khám",
+        "select-room": "Chọn phòng khám",
         "doctor": "Bác sĩ",
         "select-doctor": "Chọn bác sĩ giỏi",
         "handbook": "Cẩm nang",
@@ -25,14 +25,15 @@
         "outstanding-doctor": "Bác sĩ nổi bật tuần qua",
         "clinic": "Phòng khám nổi bật",
         "more-info": "Xem thêm",
-        "specialty": "Chuyên khoa phổ biến"
+        "specialty": "Chuyên khoa phổ biến",
+        "handbook": "Cẩm nang"
     },
     "menu": {
         "admin": {
             "user-manage": "Người dùng",
-            "doctor-manage": "Quản lý bác sĩ",
+            "doctor-manage": "Quản lý thông tin bác sĩ",
             "admin-manage": "Quản lý admin",
-            "crud": "Quản lý tài khoản",
+            "crud": "Dashboard",
             "crud-redux": "Quản lý người dùng",
             "clinic": "Phòng khám",
             "clinic-manage": "Quản lý phòng khám",
@@ -42,6 +43,7 @@
             "handbook-manage": "Quản lý cẩm nang"
         },
         "doctor": {
+            "doctor": "Các mục quản trị của bác sĩ",
             "schedule-manage": "Quản lý kế hoạch khám bệnh",
             "patient-manage": "Quản lý bệnh nhân khám bệnh"
         }
@@ -64,7 +66,7 @@
     },
     "doctor-manage": {
         "title": "Quản lý thông tin chi tiết bác sĩ",
-        "select-doctor": "Chọn bác sĩ",
+        "select-doctor": "Tên bác sĩ",
         "description": "Thông tin giới thiệu",
         "price": "Chọn giá",
         "payment": "Chọn phương thức thanh toán",
@@ -83,7 +85,7 @@
     },
     "schedule-manage": {
         "title": "Quản lý kế hoạch khám bệnh của bác sĩ",
-        "select-doctor": "Chọn bác sĩ",
+        "select-doctor": "Tên bác sĩ",
         "select-date": "Chọn ngày",
         "save": "Lưu thông tin"
     },

@@ -5,7 +5,6 @@ import * as actions from "../../store/actions";
 import LoginImg from '../../assets/images/login-img2.jpg'
 import './Login.scss';
 import { handleLogin } from '../../services/userService';
-import { isBuffer } from 'lodash';
 
 class Login extends Component {
     constructor(props) {
@@ -113,7 +112,7 @@ class Login extends Component {
                                 <span className='forgot-password'>Quên mật khẩu?</span>
                             </div>
 
-                            <div className='col-10 text-center mt-3'>
+                            {/* <div className='col-10 text-center mt-3'>
                                 <span className='text-other-login'>Hoặc đăng nhập với:</span>
                             </div>
                             <div className='col-10 social-login'>
@@ -121,7 +120,7 @@ class Login extends Component {
                                 <i className="fab fa-google google"></i>
                                 <i className="fab fa-facebook-f facebook"></i>
 
-                            </div>
+                            </div> */}
 
                         </div>
                     </div>

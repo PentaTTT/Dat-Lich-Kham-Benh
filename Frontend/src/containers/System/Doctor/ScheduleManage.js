@@ -6,7 +6,6 @@ import { FormattedMessage } from 'react-intl';
 import Select from 'react-select';
 import { CRUD_Actions, LANGUAGES, dateFormat } from '../../../utils';
 import DatePicker from '../../../components/Input/DatePicker';
-import moment from 'moment';
 import _ from 'lodash';
 import { toast } from 'react-toastify';
 import { saveBulkScheduleDoctor } from '../../../services/userService';
@@ -34,7 +33,6 @@ class ScheduleManage extends Component {
             let doctorName = this.buildNameDoctorSelect()
             this.setState({ selectedDoctor: doctorName });
         }
-
     }
 
     buildNameDoctorSelect = () => {
@@ -169,7 +167,9 @@ class ScheduleManage extends Component {
     render() {
         let { rangeTime } = this.state;
         let { language, userInfo } = this.props;
-        let yesterday = new Date(new Date().setDate(new Date().getDate() - 1))
+        //let yesterday = new Date(new Date().setDate(new Date().getDate() - 1))
+        let yesterday = new Date().setHours(0, 0, 0, 0)
+
         return (
 
             <div className='schedule-manage-container'>
@@ -185,6 +185,7 @@ class ScheduleManage extends Component {
                                 value={this.state.selectedDoctor}
                                 onChange={this.handleChangeSelect}
                                 options={userInfo.roleId === 'R1' ? this.state.listDoctors : ''}
+                                placeholder={<FormattedMessage id="doctor-manage.ph-doctor" />}
                             />
                         </div>
 
@@ -201,6 +202,7 @@ class ScheduleManage extends Component {
                             {rangeTime && rangeTime.length > 0 && rangeTime.map((item, index) => {
                                 return (
                                     <button className={item.isSelected === true ? 'btn-schedule active' : 'btn-schedule'}
+                                        style={language === LANGUAGES.VI ? { minWidth: '105px' } : { minWidth: '153px' }}
                                         key={index}
                                         onClick={() => this.handleOnClickBtnTime(item)}>
                                         {language === LANGUAGES.VI ? item.valueVi : item.valueEn}

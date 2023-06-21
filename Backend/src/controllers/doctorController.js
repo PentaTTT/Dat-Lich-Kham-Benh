@@ -125,10 +125,38 @@ let getListPatient = async (req, res) => {
     }
 }
 
+//get tat ca ds benh nhan
+let getAllListPatient = async (req, res) => {
+    try {
+        let data = await doctorService.getAllListPatientService(req.query.doctorId);
+        return res.status(200).json(data)
+    } catch (e) {
+        console.log(e)
+        return res.status(200).json({
+            errCode: -1,
+            errMessage: "Error from server"
+        })
+    }
+}
+
 //get medical history
 let getMedicalHistory = async (req, res) => {
     try {
         let data = await doctorService.getMedicalHistoryService(req.query.doctorId, req.query.date);
+        return res.status(200).json(data)
+    } catch (e) {
+        console.log(e)
+        return res.status(200).json({
+            errCode: -1,
+            errMessage: "Error from server"
+        })
+
+    }
+}
+
+let getAllMedicalHistory = async (req, res) => {
+    try {
+        let data = await doctorService.getAllMedicalHistoryService(req.query.doctorId);
         return res.status(200).json(data)
     } catch (e) {
         console.log(e)
@@ -153,9 +181,23 @@ let sendRemedy = async (req, res) => {
         })
     }
 }
+
 let postCancelStatus = async (req, res) => {
     try {
         let info = await doctorService.postCancelStatusService(req.body);
+        return res.status(200).json(info)
+    } catch (e) {
+        console.log(e)
+        return res.status(200).json({
+            errCode: -1,
+            errMessage: "Error from server"
+        })
+    }
+}
+
+let confirmBooking = async (req, res) => {
+    try {
+        let info = await doctorService.confirmBookingService(req.body);
         return res.status(200).json(info)
     } catch (e) {
         console.log(e)
@@ -176,7 +218,10 @@ module.exports = {
     getExtraInfoDoctorById: getExtraInfoDoctorById,
     getProfileDoctorById: getProfileDoctorById,
     getListPatient: getListPatient,
+    getAllListPatient: getAllListPatient,
     getMedicalHistory: getMedicalHistory,
+    getAllMedicalHistory: getAllMedicalHistory,
     sendRemedy: sendRemedy,
     postCancelStatus: postCancelStatus,
+    confirmBooking: confirmBooking,
 }

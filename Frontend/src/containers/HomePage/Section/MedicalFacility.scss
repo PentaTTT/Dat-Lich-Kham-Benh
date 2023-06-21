@@ -6,6 +6,16 @@
             &:hover {
                 color: #45c3d2
             }
+
+            @media screen and (max-width: 1400px) {
+                .bg-image {
+                    width: 250px;
+                }
+
+                h5 {
+                    padding-left: 8px
+                }
+            }
         }
     }
 }

@@ -33,11 +33,12 @@
 
     .more-info {
         display: flex;
-        gap: 15px;
+        // gap: 15px;
         padding-bottom: 15px;
 
         .left-content {
             width: 40%;
+            padding: 0 15px 0 0;
 
             label {
                 font-weight: 600;
@@ -46,6 +47,7 @@
 
         .right-content {
             width: 60%;
+            padding: 0 0 0 15px;
 
             label {
                 font-weight: 600;

@@ -43,14 +43,14 @@ class System extends Component {
                 <div className="system-container">
                     <div className="system-list">
                         <Switch>
-                            <Route path="/system/user-manage" component={UserManage} />
+                            <Route path="/system/dashboard" component={UserManage} />
                             <PrivateRoute path="/system/user-redux" component={UserRedux} isAdmin={isAdmin} />
-                            <PrivateRoute path="/system/doctor-manage" component={DoctorManage} isAdmin={isAdmin} />
+                            <Route path="/system/doctor-manage" component={DoctorManage} />
                             <PrivateRoute path="/system/specialty-manage" component={SpecialtyManage} isAdmin={isAdmin} />
                             <PrivateRoute path="/system/clinic-manage" component={ClinicManage} isAdmin={isAdmin} />
                             <PrivateRoute path="/system/handbook-manage" component={HandbookManage} isAdmin={isAdmin} />
 
-                            <Route component={() => { return (<Redirect to='/system/user-redux' />) }} />
+                            <Route component={() => { return (<Redirect to='/system/dashboard' />) }} />
                         </Switch>
                     </div>
                 </div>

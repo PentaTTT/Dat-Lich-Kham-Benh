@@ -73,7 +73,7 @@ class OutStandingDoctor extends Component {
                                                         <img style={{ backgroundImage: `url(${imageBase64})` }} />
                                                     </div>
                                                     <div className='position text-center'>
-                                                        <div>{language === LANGUAGES.VI ? nameVi : nameEn}</div>
+                                                        <div style={{ fontWeight: '600' }}>{language === LANGUAGES.VI ? nameVi : nameEn}</div>
 
                                                         <div>{item.Doctor_Info.specialtyName ?
                                                             item.Doctor_Info.specialtyName.name
@@ -100,7 +100,6 @@ const mapStateToProps = state => {
         isLoggedIn: state.user.isLoggedIn,
         language: state.app.language,
         topDoctors: state.admin.topDoctors,
-
     };
 };
 

@@ -1,0 +1,31 @@
+.section-handBook {
+    .section-content {
+
+        .section-body {
+            .specialty-customize {
+                a {
+                    color: black;
+                    text-decoration: none;
+
+                    &:hover {
+                        color: #45c3d2
+                    }
+
+                }
+
+                cursor: pointer;
+
+
+                @media screen and (max-width: 1400px) {
+                    .bg-image {
+                        width: 250px;
+                    }
+
+                    h4 {
+                        padding-left: 10px
+                    }
+                }
+            }
+        }
+    }
+}

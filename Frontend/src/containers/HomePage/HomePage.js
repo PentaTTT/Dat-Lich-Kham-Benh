@@ -56,7 +56,7 @@ class HomePage extends Component {
                     handleScrollToDoctor={this.handleScrollToDoctor}
                     handleScrollToHandbook={this.handleScrollToHandbook}
                 />
-                <ScrollToTop smooth top="1000" />
+                <ScrollToTop smooth top="20" />
 
                 <div ref={this.specialtyRef}><Specialty settings={settings} /></div>
                 <div style={{ height: '2px', backgroundColor: '#eee' }}></div>
@@ -72,7 +72,7 @@ class HomePage extends Component {
 
                 <About />
                 <div style={{ height: '2px', backgroundColor: '#eee' }}></div>
-                <ScrollToTop top="20" />
+
                 <BackToTopBtn handleScrollToTop={this.handleScrollToTop} />
                 <Footer />
 

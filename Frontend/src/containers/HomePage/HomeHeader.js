@@ -151,7 +151,14 @@ class HomeHeader extends Component {
                         </div>
 
                         <div className='header-content-right'>
-                            <div className='support'><i className='fas fa-question-circle'></i><FormattedMessage id="home-header.support" /></div>
+                            <a style={{ color: 'black', textDecorationLine: 'none' }} href="tel:555-555-5555">
+                                <div className='support'><i className='fas fa-question-circle'></i>
+                                    <span className='support-phone'>
+                                        <FormattedMessage id="home-header.support" />
+                                        <p>0978xxxxx</p>
+                                    </span>
+                                </div>
+                            </a>
                             <div className={language === LANGUAGES.VI ? 'language-vi active' : 'language-vi'}>
                                 <span onClick={() => this.changeLanguage(LANGUAGES.VI)}>VN</span>
                             </div>
