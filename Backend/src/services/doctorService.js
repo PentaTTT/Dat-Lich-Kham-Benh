@@ -504,6 +504,55 @@ let getAllListPatientService = (doctorId, date) => {
     })
 }
 
+let getListPatientByDateService = (doctorId, fromDate, toDate) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (!doctorId || !fromDate || !toDate) {
+                resolve({
+                    errCode: 1,
+                    errMessage: 'Missing require parameters!'
+                })
+            } else {
+                let data = await db.Booking.findAll({
+                    where: {
+                        [Op.or]: [
+                            { statusId: 'S1' },
+                            { statusId: 'S2' }
+                        ],
+                        doctorId: doctorId,
+                        date: {
+                            [Op.between]: [fromDate, toDate]
+                        },
+                    },
+                    include: [
+                        {
+                            model: db.User, as: 'patientData',
+                            attributes: ['email', 'lastName', 'address', 'gender', 'phoneNumber'],
+                            include: [
+                                {
+                                    model: db.Allcode, as: 'genderData', attributes: ['valueVi', 'valueEn']
+                                }
+                            ]
+                        },
+                        {
+                            model: db.Allcode, as: 'timeTypeDataPatient', attributes: ['valueVi', 'valueEn']
+                        }
+                    ],
+                    order: ['date'],
+                    raw: false,
+                    nest: true
+                })
+                resolve({
+                    errCode: 0,
+                    data
+                })
+            }
+        } catch (e) {
+            reject(e)
+        }
+    })
+}
+
 let getMedicalHistoryService = (doctorId, date) => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -734,4 +783,5 @@ module.exports = {
     getMedicalHistoryService,
     getAllMedicalHistoryService,
     confirmBookingService,
+    getListPatientByDateService,
 }

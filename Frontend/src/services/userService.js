@@ -96,6 +96,10 @@ const getListPatientService = (data) => {
     return axios.get(`/api/get-list-patient?doctorId=${data.doctorId}&date=${data.date}`)
 }
 
+const getListPatientByDateService = (data) => {
+    return axios.get(`/api/get-list-patient-by-date?doctorId=${data.doctorId}&fromDate=${data.fromDate}&toDate=${data.toDate}`)
+}
+
 const getAllListPatientService = (data) => {
     return axios.get(`/api/get-all-list-patient?doctorId=${data.doctorId}`)
 }
@@ -144,4 +148,5 @@ export {
     getMedicalHistoryService, getAllMedicalHistoryService,
     confirmBookingService,
     postSendRemedyService, postCancelStatusService,
+    getListPatientByDateService,
 }

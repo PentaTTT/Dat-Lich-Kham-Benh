@@ -50,7 +50,7 @@ class DetailSpecialty extends Component {
                         createdAt: null,
                         keyMap: 'ALL',
                         type: 'PROVINCE',
-                        valueVi: 'Toàn quốc',
+                        valueVi: 'Tất cả',
                         valueEn: 'ALL'
                     })
                 }

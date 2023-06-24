@@ -8,7 +8,7 @@ import {
     getListPatientService, getMedicalHistoryService,
     getAllListPatientService, getAllMedicalHistoryService,
     postSendRemedyService, postCancelStatusService,
-    confirmBookingService
+    confirmBookingService, getListPatientByDateService
 } from '../../../services/userService';
 import RemedyModal from './RemedyModal';
 import { toast } from 'react-toastify';
@@ -20,6 +20,8 @@ class PatientManage extends Component {
         super(props);
         this.state = {
             currentDate: new Date(),
+            fromDate: '',
+            toDate: '',
             dataPatient: [],
             dataHistory: [],
             isOpenRemedyModal: false,
@@ -37,12 +39,14 @@ class PatientManage extends Component {
 
     getDataPatient = async () => {
         let { user } = this.props
-        let { currentDate } = this.state
-        let formatDate = new Date(currentDate).toLocaleDateString().slice(0, 19).replace('T', ' ')
+        let { fromDate, toDate } = this.state
+        let formatDate = new Date(fromDate).toLocaleDateString().slice(0, 19).replace('T', ' ')
+        let formatDate2 = new Date(toDate).toLocaleDateString().slice(0, 19).replace('T', ' ')
 
-        let res = await getListPatientService({
+        let res = await getListPatientByDateService({
             doctorId: user.id,
-            date: formatDate
+            fromDate: formatDate,
+            toDate: formatDate2
         })
 
         if (res && res.errCode === 0) {
@@ -96,7 +100,15 @@ class PatientManage extends Component {
     //datepicker
     handleOnChangeDatePicker = (date) => {
         this.setState({
-            currentDate: date[0],
+            fromDate: date[0],
+            clickAll: false
+        }, async () => {
+            await this.getDataPatient()
+        })
+    }
+    handleOnChangeDatePicker2 = (date) => {
+        this.setState({
+            toDate: date[0],
             clickAll: false
         }, async () => {
             await this.getDataPatient()
@@ -244,15 +256,23 @@ class PatientManage extends Component {
                         <div className='patient-manage-title title'>Quản lý bệnh nhân khám bệnh</div>
                         <div className='patient-manage-body'>
                             <div className='row px-4'>
-                                <div className='col-3 form-group'>
-                                    <label>Chọn ngày</label>
+                                <div className='col-2 form-group'>
+                                    <label>Từ ngày</label>
                                     <DatePicker
                                         onChange={this.handleOnChangeDatePicker}
                                         className='form-control'
-                                        value={this.state.currentDate}
+                                        value={this.state.fromDate}
                                     />
                                 </div>
-                                <div className='col-3 all-list'>
+                                <div className='col-2 form-group'>
+                                    <label>Đến ngày</label>
+                                    <DatePicker
+                                        onChange={this.handleOnChangeDatePicker2}
+                                        className='form-control'
+                                        value={this.state.toDate}
+                                    />
+                                </div>
+                                <div className='col-2 all-list'>
                                     <button className={clickAll === false ? 'btn btn-outline-success px-2' : 'btn btn-success px-2'}
                                         onClick={() => { this.handleClickAllBtn() }}
                                     >Hiển thị tất cả ds</button>

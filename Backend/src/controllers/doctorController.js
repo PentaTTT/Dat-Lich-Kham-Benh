@@ -168,6 +168,21 @@ let getAllMedicalHistory = async (req, res) => {
     }
 }
 
+//get list from date to date
+let getListPatientByDate = async (req, res) => {
+    try {
+        let data = await doctorService.getListPatientByDateService(req.query.doctorId, req.query.fromDate, req.query.toDate);
+        return res.status(200).json(data)
+    } catch (e) {
+        console.log(e)
+        return res.status(200).json({
+            errCode: -1,
+            errMessage: "Error from server"
+        })
+
+    }
+}
+
 //send remedy
 let sendRemedy = async (req, res) => {
     try {
@@ -224,4 +239,5 @@ module.exports = {
     sendRemedy: sendRemedy,
     postCancelStatus: postCancelStatus,
     confirmBooking: confirmBooking,
+    getListPatientByDate: getListPatientByDate,
 }

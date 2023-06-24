@@ -62,7 +62,7 @@ let getDetailSpecialtyByIdService = (inputId, location) => {
                     where: {
                         id: inputId
                     },
-                    attributes: ['descriptionHTML', 'descriptionMarkdown'],
+                    attributes: ['descriptionHTML', 'descriptionMarkdown', 'image'],
                     raw: true
                 })
 
